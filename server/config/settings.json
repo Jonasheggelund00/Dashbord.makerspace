@@ -1,0 +1,18 @@
+{
+  "polling": {
+    "printerInterval": 10000,
+    "sensorInterval": 10000
+  },
+  "homeAssistant": {
+    "baseUrl": "http://homeassistant.local:8123",
+    "token": ""
+  },
+  "logs": {
+    "retentionDays": 90
+  },
+  "ledThresholds": {
+    "green": 30,
+    "yellow": 40,
+    "orange": 50
+  }
+}

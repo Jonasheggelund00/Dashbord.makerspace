@@ -1,0 +1,80 @@
+[
+  {
+    "ip": "192.168.1.136",
+    "apiKey": "j7dvnYpoheQvQNW",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 04"
+  },
+  {
+    "ip": "192.168.1.33",
+    "apiKey": "LxueKDAEf9yC6iu",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S C"
+  },
+  {
+    "ip": "192.168.1.253",
+    "apiKey": "kRmdUMtZ8kFqCag",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 02"
+  },
+  {
+    "ip": "192.168.1.51",
+    "apiKey": "LMPGPs5eQXa9MSH",
+    "hostname": "prusa-mini",
+    "displayName": "MINI-A"
+  },
+  {
+    "ip": "192.168.1.39",
+    "apiKey": "WRPfvKPD8FaFpDS",
+    "hostname": "prusa-mini",
+    "displayName": "MINI-B"
+  },
+  {
+    "ip": "192.168.1.132",
+    "apiKey": "H4xU4MqW5ZFgVqQ",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 03"
+  },
+  {
+    "ip": "192.168.1.44",
+    "apiKey": "fi4ER95pJoG3G3n",
+    "hostname": "prusa-mini",
+    "displayName": "MINI-D"
+  },
+  {
+    "ip": "192.168.1.211",
+    "apiKey": "oaXUskTnkqxQ8zN",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 10"
+  },
+  {
+    "ip": "192.168.1.219",
+    "apiKey": "xEDKegiEG96opV2",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 09"
+  },
+  {
+    "ip": "192.168.1.166",
+    "apiKey": "4dQFtynEBGNsS8r",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 08"
+  },
+  {
+    "ip": "192.168.1.67",
+    "apiKey": "ss9LHDjFPV6JN5g",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 07"
+  },
+  {
+    "ip": "192.168.1.66",
+    "apiKey": "xSfMmFLxuEJz5Bs",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 05"
+  },
+  {
+    "ip": "192.168.1.241",
+    "apiKey": "ymzk9vHyZa9HJQf",
+    "hostname": "prusa-xl",
+    "displayName": ""
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "mmm1jcq75r5r",
+    "username": "Fahad123",
+    "passwordHash": "$2b$10$Nh4xMEPS9QCDmlnmJ.QTWOnEot8opDJqSgLwASqgAePm8EQ13c/pe",
+    "createdAt": "2026-03-11T12:54:19.951Z"
+  },
+  {
+    "id": "mmm1ks90ttyh",
+    "username": "Jonas00",
+    "passwordHash": "$2b$10$XRTqcY1VbwjsSYDOuBR.vOVACldJ34Sb9rRcCu/PNJiWkpY2aeGc2",
+    "createdAt": "2026-03-11T12:55:26.724Z"
+  },
+  {
+    "id": "mmm3jwvb3s08",
+    "username": "Testbruker",
+    "passwordHash": "$2b$10$lkN11tSc7Rnl91wTIk8NeOyB5i/QMlcDS6KNSmT5v5IHgCKDf4qYa",
+    "createdAt": "2026-03-11T13:50:45.287Z"
+  }
+]

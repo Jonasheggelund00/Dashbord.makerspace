@@ -1,0 +1,254 @@
+[
+  {
+    "id": "1773237501695reuyqf9",
+    "timestamp": "2026-03-11T13:58:21.695Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17732374883134vd11gz",
+    "timestamp": "2026-03-11T13:58:08.313Z",
+    "username": "Testbruker",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773237054168tuwk981",
+    "timestamp": "2026-03-11T13:50:54.168Z",
+    "username": "Testbruker",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773237047247zuagcqs",
+    "timestamp": "2026-03-11T13:50:47.247Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773237024437lwzqmn0",
+    "timestamp": "2026-03-11T13:50:24.437Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773236768068e9uds6g",
+    "timestamp": "2026-03-11T13:46:08.068Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773236299698hxixgug",
+    "timestamp": "2026-03-11T13:38:19.698Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773236263033cucymnz",
+    "timestamp": "2026-03-11T13:37:43.033Z",
+    "username": "test",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17732362581414vr2viu",
+    "timestamp": "2026-03-11T13:37:38.141Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773236143407g7fa186",
+    "timestamp": "2026-03-11T13:35:43.407Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773234592396dq0g1sw",
+    "timestamp": "2026-03-11T13:09:52.396Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233940554m527f7g",
+    "timestamp": "2026-03-11T12:59:00.554Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233936200urkshg9",
+    "timestamp": "2026-03-11T12:58:56.200Z",
+    "username": "Fahad123",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233925283wzamecq",
+    "timestamp": "2026-03-11T12:58:45.283Z",
+    "username": "Fahad123",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233907294q0pj6ah",
+    "timestamp": "2026-03-11T12:58:27.294Z",
+    "username": "Fahad123",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "17732338978125sbvi9f",
+    "timestamp": "2026-03-11T12:58:17.812Z",
+    "username": "Fahad123",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233889334d2usj0v",
+    "timestamp": "2026-03-11T12:58:09.334Z",
+    "username": "Fahad123",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233806157cfwx6pg",
+    "timestamp": "2026-03-11T12:56:46.157Z",
+    "username": "Fahad123",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233800244b39jnh0",
+    "timestamp": "2026-03-11T12:56:40.244Z",
+    "username": "Fahad123",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233707093rosjvyd",
+    "timestamp": "2026-03-11T12:55:07.093Z",
+    "username": "Fahad123",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233696286wlry0pe",
+    "timestamp": "2026-03-11T12:54:56.286Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "17732336778003hnxf6y",
+    "timestamp": "2026-03-11T12:54:37.801Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773233662702lyt29qa",
+    "timestamp": "2026-03-11T12:54:22.702Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1773232239016dyscz1z",
+    "timestamp": "2026-03-11T12:30:39.016Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1773066489322d50ukys",
+    "timestamp": "2026-03-09T14:28:09.322Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17724637458358vi0ui1",
+    "timestamp": "2026-03-02T15:02:25.835Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1772463598080zq88uj7",
+    "timestamp": "2026-03-02T14:59:58.080Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17707415997665mvj580",
+    "timestamp": "2026-02-10T16:39:59.766Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1770735628578u5k22w0",
+    "timestamp": "2026-02-10T15:00:28.578Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1770381579194x4gnzyn",
+    "timestamp": "2026-02-06T12:39:39.194Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17683913890828oqwxm8",
+    "timestamp": "2026-01-14T11:49:49.082Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1767784168453thgxw8w",
+    "timestamp": "2026-01-07T11:09:28.453Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17667508919059sz83yp",
+    "timestamp": "2025-12-26T12:08:11.905Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "176573302518767qi4z9",
+    "timestamp": "2025-12-14T17:23:45.187Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1765374858847jybvv47",
+    "timestamp": "2025-12-10T13:54:18.847Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1765374853197c69di9t",
+    "timestamp": "2025-12-10T13:54:13.197Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  }
+]
