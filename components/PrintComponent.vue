@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div :class="['p-6', isDark ? 'print-dark' : 'print-light']">
     <div class="header">
       <h1 :class="isDark ? 'text-white' : 'text-gray-900'">Prusa Print Status</h1>
       <div class="flex flex-col items-end gap-2">
@@ -13,31 +13,110 @@
     </div>
 
     <!-- Filamentskap-stripe -->
-    <div v-if="cabinet.online" class="mb-6">
+    <div v-if="cabinet.online" class="mb-4 flex items-center">
       <div
         :class="isDark
-          ? 'inline-flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-gray-800 border border-gray-700 px-4 py-2'
-          : 'inline-flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-white shadow-sm border border-gray-200 px-4 py-2'"
+          ? 'inline-flex items-center gap-2 sm:gap-3 rounded-lg bg-gray-800 border border-gray-700 px-2.5 sm:px-3 py-1.5 sm:py-2 whitespace-nowrap'
+          : 'inline-flex items-center gap-2 sm:gap-3 rounded-lg bg-white shadow-sm border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 whitespace-nowrap'"
       >
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-green-500"></span>
-          <span :class="isDark ? 'text-sm font-semibold text-white' : 'text-sm font-semibold text-gray-800'">Filamentskap</span>
-        </div>
-        <div :class="isDark ? 'w-px h-4 bg-gray-600' : 'w-px h-4 bg-gray-300'"></div>
         <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          <span :class="isDark ? 'text-xs sm:text-sm font-semibold text-white' : 'text-xs sm:text-sm font-semibold text-gray-800'">Filamentskap</span>
+        </div>
+        <div :class="isDark ? 'w-px h-3.5 bg-gray-600' : 'w-px h-3.5 bg-gray-300'"></div>
+        <div class="flex items-center gap-1">
           <svg class="w-4 h-4 flex-shrink-0" :class="isDark ? 'text-orange-400' : 'text-orange-500'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/>
           </svg>
-          <span :class="isDark ? 'text-sm font-bold text-orange-400' : 'text-sm font-bold text-orange-600'">{{ cabinet.averageTemp }}°C</span>
-          <span :class="isDark ? 'text-xs text-gray-500' : 'text-xs text-gray-400'">({{ cabinet.temperature1 }}° / {{ cabinet.temperature2 }}°)</span>
+          <span :class="isDark ? 'text-xs sm:text-sm font-bold text-orange-400' : 'text-xs sm:text-sm font-bold text-orange-600'">{{ cabinet.averageTemp }}°C</span>
+          <span :class="isDark ? 'text-[11px] sm:text-xs text-gray-500' : 'text-[11px] sm:text-xs text-gray-400'">({{ cabinet.temperature1 }}° / {{ cabinet.temperature2 }}°)</span>
         </div>
-        <div :class="isDark ? 'w-px h-4 bg-gray-600' : 'w-px h-4 bg-gray-300'"></div>
-        <div class="flex items-center gap-1.5">
+        <div :class="isDark ? 'w-px h-3.5 bg-gray-600' : 'w-px h-3.5 bg-gray-300'"></div>
+        <div class="flex items-center gap-1">
           <svg class="w-4 h-4 flex-shrink-0" :class="isDark ? 'text-blue-400' : 'text-blue-500'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
           </svg>
-          <span :class="isDark ? 'text-sm font-bold text-blue-400' : 'text-sm font-bold text-blue-600'">{{ cabinet.averageHumidity }}%</span>
-          <span :class="isDark ? 'text-xs text-gray-500' : 'text-xs text-gray-400'">({{ cabinet.humidity1 }}% / {{ cabinet.humidity2 }}%)</span>
+          <span :class="isDark ? 'text-xs sm:text-sm font-bold text-blue-400' : 'text-xs sm:text-sm font-bold text-blue-600'">{{ cabinet.averageHumidity }}%</span>
+          <span :class="isDark ? 'text-[11px] sm:text-xs text-gray-500' : 'text-[11px] sm:text-xs text-gray-400'">({{ cabinet.humidity1 }}% / {{ cabinet.humidity2 }}%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <div class="flex items-center justify-between gap-2">
+        <button
+          @click="filtersOpen = !filtersOpen"
+          class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium"
+          :class="isDark ? 'bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700' : 'bg-white border-gray-300 text-gray-800 hover:bg-gray-50'"
+        >
+          <span>Filtrer</span>
+          <span
+            v-if="activeFilterCount > 0"
+            class="text-xs px-1.5 py-0.5 rounded-full"
+            :class="isDark ? 'bg-blue-500/20 text-blue-300' : 'bg-blue-100 text-blue-700'"
+          >
+            {{ activeFilterCount }}
+          </span>
+          <span class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-500'">{{ filtersOpen ? 'Skjul' : 'Vis' }}</span>
+        </button>
+
+        <p class="text-xs" :class="isDark ? 'text-gray-400' : 'text-gray-500'">
+          Viser {{ filteredPrinterList.length }} av {{ printerList.length }} printere
+        </p>
+      </div>
+
+      <div v-if="filtersOpen" class="mt-3 rounded-xl border px-4 py-3" :class="isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs mb-1" :class="isDark ? 'text-gray-400' : 'text-gray-500'">Søk</label>
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Navn, hostnavn eller IP"
+              class="w-full rounded-lg border px-3 py-2 text-sm outline-none"
+              :class="isDark ? 'bg-gray-900 border-gray-600 text-gray-100 placeholder-gray-500' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400'"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs mb-1" :class="isDark ? 'text-gray-400' : 'text-gray-500'">Modell</label>
+            <select
+              v-model="selectedModel"
+              class="w-full rounded-lg border px-3 py-2 text-sm outline-none"
+              :class="isDark ? 'bg-gray-900 border-gray-600 text-gray-100' : 'bg-white border-gray-300 text-gray-900'"
+            >
+              <option value="all">Alle modeller</option>
+              <option value="mk4">MK4S</option>
+              <option value="mini">Mini</option>
+              <option value="xl">Prusa XL</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs mb-1" :class="isDark ? 'text-gray-400' : 'text-gray-500'">Status</label>
+            <select
+              v-model="selectedState"
+              class="w-full rounded-lg border px-3 py-2 text-sm outline-none"
+              :class="isDark ? 'bg-gray-900 border-gray-600 text-gray-100' : 'bg-white border-gray-300 text-gray-900'"
+            >
+              <option value="all">Alle statuser</option>
+              <option value="printing">I bruk</option>
+              <option value="idle">Ledig</option>
+              <option value="paused">Pause</option>
+              <option value="error">Feil</option>
+              <option value="other">Andre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-3 flex items-center justify-end gap-2">
+          <button
+            @click="clearFilters"
+            class="text-xs px-3 py-1.5 rounded-md border"
+            :class="isDark ? 'border-gray-600 text-gray-200 hover:bg-gray-700' : 'border-gray-300 text-gray-700 hover:bg-gray-50'"
+          >
+            Nullstill filter
+          </button>
         </div>
       </div>
     </div>
@@ -165,8 +244,8 @@
       <!-- Mini Section -->
       <div v-if="miniPrinters.length" class="mb-8">
         <div class="flex items-center mb-4">
-          <h2 class="text-xl font-semibold text-gray-800 mr-4 whitespace-nowrap">Mini</h2>
-          <div class="flex-grow border-t-2 border-gray-300"></div>
+          <h2 :class="isDark ? 'text-xl font-semibold text-white mr-4 whitespace-nowrap' : 'text-xl font-semibold text-gray-800 mr-4 whitespace-nowrap'">Mini</h2>
+          <div :class="isDark ? 'flex-grow border-t-2 border-gray-600' : 'flex-grow border-t-2 border-gray-300'"></div>
         </div>
         <div class="printer-grid">
           <div v-for="printer in miniPrinters" :key="printer.serial || printer.ip" class="printer-card">
@@ -397,11 +476,19 @@
           </div>
         </div>
       </div>
+
+      <div
+        v-if="filteredPrinterList.length === 0"
+        class="rounded-xl border px-4 py-6 text-center"
+        :class="isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-gray-50 border-gray-200 text-gray-600'"
+      >
+        Ingen printere matcher filtrene.
+      </div>
     </div>
 
     <!-- Spinner og lastetekst når printere lastes inn -->
     <div v-if="!printerList.length && !error" class="flex flex-col items-center justify-center py-16">
-      <div class="mb-4 text-lg font-semibold text-gray-700">Laster inn printere...</div>
+      <div :class="isDark ? 'mb-4 text-lg font-semibold text-gray-300' : 'mb-4 text-lg font-semibold text-gray-700'">Laster inn printere...</div>
       <div class="spinner border-4 border-orange-400 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
     </div>
     <div v-if="error" class="error-msg">{{ error }}</div>
@@ -438,6 +525,10 @@ h1 {
   font-size: 2.2rem;
   font-weight: 700;
   color: #1e293b;
+}
+
+.print-dark h1 {
+  color: #f3f4f6;
 }
 
 /* --- Oppdater-knapp --- */
@@ -483,6 +574,11 @@ h1 {
   border: 1px solid #e5e7eb;
 }
 
+.print-dark .printer-card {
+  background: #1f2937;
+  border-color: #374151;
+}
+
 .printer-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -494,6 +590,10 @@ h1 {
   align-items: flex-start;
   padding: 1.25rem 1.5rem 1rem;
   border-bottom: 1px solid #f3f4f6;
+}
+
+.print-dark .printer-card-header {
+  border-bottom-color: #374151;
 }
 
 .printer-title {
@@ -508,10 +608,18 @@ h1 {
   color: #1f2937;
 }
 
+.print-dark .printer-model {
+  color: #f3f4f6;
+}
+
 .printer-name {
   font-size: 0.875rem;
   font-weight: 400;
   color: #6b7280;
+}
+
+.print-dark .printer-name {
+  color: #9ca3af;
 }
 
 /* --- Feilmelding --- */
@@ -538,6 +646,11 @@ h1 {
   border-bottom: 1px solid #f3f4f6;
 }
 
+.print-dark .printer-image-wrapper {
+  background: #111827;
+  border-bottom-color: #374151;
+}
+
 .printer-img {
   width: 160px;
   height: auto;
@@ -548,6 +661,10 @@ h1 {
 .printer-details {
   padding: 1.5rem;
   color: #334155;
+}
+
+.print-dark .printer-details {
+  color: #d1d5db;
 }
 
 /* --- Status badge --- */
@@ -618,6 +735,11 @@ h1 {
   border: 1px solid #e5e7eb;
 }
 
+.print-dark .temp-item {
+  background: #111827;
+  border-color: #374151;
+}
+
 .temp-label {
   display: flex;
   align-items: center;
@@ -628,6 +750,10 @@ h1 {
   margin-bottom: 0.375rem;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+}
+
+.print-dark .temp-label {
+  color: #9ca3af;
 }
 
 .temp-label svg {
@@ -644,6 +770,10 @@ h1 {
   font-size: 1.375rem;
   font-weight: 600;
   color: #111827;
+}
+
+.print-dark .temp-value .current {
+  color: #f3f4f6;
 }
 
 .temp-value .target {
@@ -669,6 +799,11 @@ h1 {
   margin-bottom: 0.875rem;
 }
 
+.print-dark .filename-display {
+  background: #111827;
+  border-color: #374151;
+}
+
 .filename-display svg {
   flex-shrink: 0;
   color: #6b7280;
@@ -685,6 +820,10 @@ h1 {
   min-width: 0;
 }
 
+.print-dark .filename-text {
+  color: #d1d5db;
+}
+
 .download-btn {
   flex-shrink: 0;
   display: flex;
@@ -697,9 +836,17 @@ h1 {
   cursor: pointer;
 }
 
+.print-dark .download-btn {
+  color: #9ca3af;
+}
+
 .download-btn:hover {
   color: #374151;
   transform: scale(1.15);
+}
+
+.print-dark .download-btn:hover {
+  color: #e5e7eb;
 }
 
 .download-btn:active {
@@ -729,10 +876,18 @@ h1 {
   letter-spacing: 0.025em;
 }
 
+.print-dark .progress-label {
+  color: #9ca3af;
+}
+
 .progress-percent {
   font-size: 1rem;
   font-weight: 600;
   color: #111827;
+}
+
+.print-dark .progress-percent {
+  color: #f3f4f6;
 }
 
 .progress-bar-wrapper {
@@ -741,6 +896,10 @@ h1 {
   background: #f3f4f6;
   border-radius: 9999px;
   overflow: hidden;
+}
+
+.print-dark .progress-bar-wrapper {
+  background: #374151;
 }
 
 .progress-bar-fill {
@@ -767,6 +926,11 @@ h1 {
   gap: 0.125rem;
 }
 
+.print-dark .time-item {
+  background: #111827;
+  border-color: #374151;
+}
+
 .time-label {
   font-size: 0.6875rem;
   font-weight: 500;
@@ -775,10 +939,18 @@ h1 {
   letter-spacing: 0.025em;
 }
 
+.print-dark .time-label {
+  color: #9ca3af;
+}
+
 .time-value {
   font-size: 0.9375rem;
   font-weight: 600;
   color: #111827;
+}
+
+.print-dark .time-value {
+  color: #f3f4f6;
 }
 
 /* --- Status info --- */
@@ -791,11 +963,20 @@ h1 {
   text-align: center;
 }
 
+.print-dark .status-info {
+  background: #111827;
+  border-color: #374151;
+}
+
 .status-info p {
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
   margin: 0;
+}
+
+.print-dark .status-info p {
+  color: #d1d5db;
 }
 
 .info-list {
@@ -924,6 +1105,10 @@ h1 {
   position: relative;
 }
 
+.print-dark .xl-printer-card {
+  background: #1f2937;
+}
+
 .xl-printer-card:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
@@ -937,6 +1122,10 @@ h1 {
   justify-content: center;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   padding: 2rem;
+}
+
+.print-dark .xl-image-section {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
 }
 
 .xl-printer-img {
@@ -1008,6 +1197,10 @@ const printerList = sharedPrinterList
 const error = ref(null)
 const lastUpdated = ref('')
 let intervalId = null
+const searchQuery = ref('')
+const selectedModel = ref('all')
+const selectedState = ref('all')
+const filtersOpen = ref(false)
 
 // Filamentskap
 const cabinet = ref({ online: false })
@@ -1024,8 +1217,49 @@ const pollingInterval = ref(3000) // Default 3 seconds
 const route = useRoute()
 
 // Computed properties for filtering printers
+const filteredPrinterList = computed(() => {
+  const q = searchQuery.value.trim().toLowerCase()
+
+  return printerList.value.filter((printer) => {
+    const hostname = (printer.hostname || '').toLowerCase()
+    const displayName = (printer.displayName || '').toLowerCase()
+    const ip = (printer.ip || '').toLowerCase()
+    const state = (printer.state || '').toUpperCase()
+
+    const matchesSearch =
+      !q ||
+      hostname.includes(q) ||
+      displayName.includes(q) ||
+      ip.includes(q)
+
+    const matchesModel =
+      selectedModel.value === 'all' ||
+      (selectedModel.value === 'mk4' && hostname.includes('mk4')) ||
+      (selectedModel.value === 'mini' && hostname.includes('mini')) ||
+      (selectedModel.value === 'xl' && hostname.includes('xl'))
+
+    let stateGroup = 'other'
+    if (state === 'PRINTING') stateGroup = 'printing'
+    else if (state === 'IDLE' || state === 'READY' || state === 'FINISHED') stateGroup = 'idle'
+    else if (state === 'PAUSED' || state === 'STOPPED') stateGroup = 'paused'
+    else if (state === 'ERROR' || printer.error) stateGroup = 'error'
+
+    const matchesState = selectedState.value === 'all' || stateGroup === selectedState.value
+
+    return matchesSearch && matchesModel && matchesState
+  })
+})
+
+const activeFilterCount = computed(() => {
+  let count = 0
+  if (searchQuery.value.trim() !== '') count++
+  if (selectedModel.value !== 'all') count++
+  if (selectedState.value !== 'all') count++
+  return count
+})
+
 const mk4sPrinters = computed(() => {
-  return printerList.value
+  return filteredPrinterList.value
     .filter(printer => printer.hostname && printer.hostname.toLowerCase().includes('mk4'))
     .sort((a, b) => {
       const nameA = (a.displayName || a.hostname || a.ip).toLowerCase();
@@ -1035,7 +1269,7 @@ const mk4sPrinters = computed(() => {
 })
 
 const miniPrinters = computed(() => {
-  return printerList.value
+  return filteredPrinterList.value
     .filter(printer => printer.hostname && printer.hostname.toLowerCase().includes('mini'))
     .sort((a, b) => {
       const nameA = (a.displayName || a.hostname || a.ip).toLowerCase();
@@ -1045,7 +1279,7 @@ const miniPrinters = computed(() => {
 })
 
 const xlPrinters = computed(() => {
-  return printerList.value
+  return filteredPrinterList.value
     .filter(printer => printer.hostname && printer.hostname.toLowerCase().includes('xl'))
     .sort((a, b) => {
       const nameA = (a.displayName || a.hostname || a.ip).toLowerCase();
@@ -1053,6 +1287,12 @@ const xlPrinters = computed(() => {
       return nameA.localeCompare(nameB);
     });
 })
+
+function clearFilters() {
+  searchQuery.value = ''
+  selectedModel.value = 'all'
+  selectedState.value = 'all'
+}
 
 
 async function fetchInfo() {

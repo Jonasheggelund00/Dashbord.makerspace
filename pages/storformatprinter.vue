@@ -301,28 +301,39 @@ function jobStateBadgeClass(stateRaw) {
   return 'bg-gray-100 text-gray-600';
 }
 
-async function fetchData() {
-  loading.value = true;
+async function fetchData(isInitial = false) {
+  if (isInitial) {
+    loading.value = true;
+  }
   try {
     const res = await fetch('/api/hp-designjet');
     if (res.ok) {
-      data.value = await res.json();
+      const newData = await res.json();
+      // Oppdater feltene individuelt for å opprettholde Vue reaktivitet
+      data.value.online = newData.online;
+      data.value.isPrinting = newData.isPrinting;
+      data.value.status = newData.status;
+      data.value.ink = newData.ink;
+      data.value.jobs = newData.jobs;
+      data.value.roll = newData.roll;
       const now = new Date();
       lastUpdated.value = now.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     } else {
-      data.value = { ...data.value, online: false };
+      data.value.online = false;
     }
   } catch (e) {
     console.error('Feil ved henting av HP DesignJet data:', e);
-    data.value = { ...data.value, online: false };
+    data.value.online = false;
   } finally {
-    loading.value = false;
+    if (isInitial) {
+      loading.value = false;
+    }
   }
 }
 
 onMounted(() => {
-  fetchData();
-  intervalId = setInterval(fetchData, 20000);
+  fetchData(true);
+  intervalId = setInterval(() => fetchData(false), 20000);
 });
 
 onUnmounted(() => {

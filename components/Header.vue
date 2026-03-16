@@ -4,11 +4,14 @@
     <!-- Top bar -->
     <div class="container mx-auto flex items-center justify-between px-5 py-4 relative z-10">
       <!-- Logo -->
+
+      <a href="/">
       <img
         src="/logo.png"
         alt="Makerspace Logo"
         class="h-12"
       />
+      </a>
 
       <!-- Desktop Navigation -->
       <nav class="hidden xl:flex flex-1 justify-center">

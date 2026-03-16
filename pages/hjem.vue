@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="min-h-screen bg-white">
+  <div :class="isDark ? 'home-dark min-h-screen bg-gray-900' : 'min-h-screen bg-white'">
     <Header />
 
     <div class="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
@@ -299,7 +299,7 @@
       <!-- Snarvei -->
       <section>
         <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Gå til</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
 
           <NuxtLink
             to="/3dprintere"
@@ -353,6 +353,8 @@
             </svg>
           </NuxtLink>
 
+          <WallDisplayLaunch />
+
         </div>
       </section>
 
@@ -362,8 +364,18 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { useState } from '#app';
 import Header from '../components/Header.vue';
+import WallDisplayLaunch from '../components/WallDisplayLaunch.vue';
 import { sharedPrinterList } from '../components/printerState.js';
+
+const isDark = useState('darkMode', () => {
+  if (process.client) {
+    const saved = localStorage.getItem('darkMode');
+    return saved !== null ? saved === 'true' : false;
+  }
+  return false;
+});
 
 const printers = sharedPrinterList;
 const loadingPrinters = ref(true);
@@ -530,3 +542,44 @@ onUnmounted(() => {
   if (sensorIntervalId) clearInterval(sensorIntervalId);
 });
 </script>
+
+<style scoped>
+.home-dark .bg-gray-50 {
+  background-color: #1f2937 !important;
+}
+
+.home-dark .bg-gray-100 {
+  background-color: #111827 !important;
+}
+
+.home-dark .border-gray-100,
+.home-dark .border-gray-200 {
+  border-color: #374151 !important;
+}
+
+.home-dark .text-gray-900 {
+  color: #f3f4f6 !important;
+}
+
+.home-dark .text-gray-700,
+.home-dark .text-gray-600 {
+  color: #d1d5db !important;
+}
+
+.home-dark .text-gray-500,
+.home-dark .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.home-dark .bg-red-50 {
+  background-color: rgba(127, 29, 29, 0.25) !important;
+}
+
+.home-dark .border-red-100 {
+  border-color: rgba(185, 28, 28, 0.45) !important;
+}
+
+.home-dark .text-red-500 {
+  color: #fca5a5 !important;
+}
+</style>
