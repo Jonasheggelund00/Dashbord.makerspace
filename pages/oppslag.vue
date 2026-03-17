@@ -22,12 +22,12 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 sm:gap-2.5 lg:gap-5 mb-2 sm:mb-3 lg:mb-5 flex-shrink-0 overflow-hidden">
         <div class="rounded p-1.5 sm:p-2.5 lg:p-6 bg-emerald-500/15 border border-emerald-500/30 overflow-hidden flex flex-col">
-          <p class="text-gray-300 text-xs lg:text-base mb-0.5 lg:mb-2 leading-tight">3D-printers</p>
+          <p class="text-gray-300 text-xs lg:text-base mb-0.5 lg:mb-2 leading-tight">3D-printere i bruk</p>
           <p class="text-2xl sm:text-3xl lg:text-6xl font-bold tabular-nums leading-none">{{ printerStats.printing }}</p>
         </div>
 
         <div class="rounded p-1.5 sm:p-2.5 lg:p-6 bg-sky-500/15 border border-sky-500/30 overflow-hidden flex flex-col">
-          <p class="text-gray-300 text-xs lg:text-base mb-0.5 lg:mb-2 leading-tight">Ledig</p>
+          <p class="text-gray-300 text-xs lg:text-base mb-0.5 lg:mb-2 leading-tight">3D-printere ledig</p>
           <p class="text-2xl sm:text-3xl lg:text-6xl font-bold tabular-nums leading-none">{{ printerStats.idle }}</p>
         </div>
 

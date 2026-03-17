@@ -75,6 +75,12 @@
     "ip": "192.168.1.241",
     "apiKey": "ymzk9vHyZa9HJQf",
     "hostname": "prusa-xl",
-    "displayName": ""
+    "displayName": "XL"
+  },
+  {
+    "ip": "192.168.1.206",
+    "apiKey": "kiKR6qN25tfaw7t",
+    "hostname": "prusa-mk4",
+    "displayName": "MK4S 01"
   }
 ]

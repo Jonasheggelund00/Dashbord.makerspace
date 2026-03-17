@@ -13,11 +13,11 @@
     </div>
 
     <!-- Filamentskap-stripe -->
-    <div v-if="cabinet.online" class="mb-4 flex items-center">
+    <div v-if="cabinet.online" class="mb-4 w-full overflow-x-auto">
       <div
         :class="isDark
-          ? 'inline-flex items-center gap-2 sm:gap-3 rounded-lg bg-gray-800 border border-gray-700 px-2.5 sm:px-3 py-1.5 sm:py-2 whitespace-nowrap'
-          : 'inline-flex items-center gap-2 sm:gap-3 rounded-lg bg-white shadow-sm border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 whitespace-nowrap'"
+          ? 'flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg bg-gray-800 border border-gray-700 px-2.5 sm:px-3 py-1.5 sm:py-2'
+          : 'flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg bg-white shadow-sm border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2'"
       >
         <div class="flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-green-500"></span>

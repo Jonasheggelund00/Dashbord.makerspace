@@ -365,23 +365,25 @@
 
       <!-- Logs Tab -->
       <div v-show="activeTab === 'logs'" :class="isDark ? 'bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700' : 'bg-white rounded-xl shadow-lg p-6'">
-        <div class="flex justify-between items-center mb-6">
-          <h1 :class="isDark ? 'text-3xl font-bold text-white' : 'text-3xl font-bold text-gray-800'">Aktivitetslogg</h1>
-          <div class="flex gap-3">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 sm:gap-0">
+          <h1 :class="isDark ? 'text-2xl sm:text-3xl font-bold text-white' : 'text-2xl sm:text-3xl font-bold text-gray-800'">Aktivitetslogg</h1>
+          <div class="flex gap-2 w-full sm:w-auto">
             <button @click="exportLogsToCSV" 
-              class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              class="flex-1 sm:flex-none bg-green-600 hover:bg-green-700 text-white font-semibold px-3 sm:px-4 py-2 rounded-lg transition flex items-center justify-center gap-2 text-sm sm:text-base">
+              <svg class="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              Eksporter CSV
+              <span class="hidden sm:inline">Eksporter CSV</span>
+              <span class="inline sm:hidden">CSV</span>
             </button>
             <button @click="refreshLogs" 
-              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-2"
+              class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 sm:px-4 py-2 rounded-lg transition flex items-center justify-center gap-2 text-sm sm:text-base"
               :disabled="loadingLogs">
-              <svg class="w-5 h-5" :class="{ 'animate-spin': loadingLogs }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0" :class="{ 'animate-spin': loadingLogs }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
               </svg>
-              {{ loadingLogs ? 'Oppdaterer...' : 'Oppdater' }}
+              <span class="hidden sm:inline">{{ loadingLogs ? 'Oppdaterer...' : 'Oppdater' }}</span>
+              <span class="inline sm:hidden">{{ loadingLogs ? '...' : '↻' }}</span>
             </button>
           </div>
         </div>
@@ -413,15 +415,15 @@
 
 
         <!-- Filter dropdown and delete button -->
-        <div class="mb-6 flex flex-col md:flex-row gap-4 items-start md:items-end">
-          <div class="flex-1">
+        <div class="mb-6 flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-end">
+          <div class="flex-1 w-full">
             <label for="logFilter" :class="isDark ? 'block text-sm font-medium text-gray-300 mb-2' : 'block text-sm font-medium text-gray-700 mb-2'">
               Filtrer logger:
             </label>
             <select 
               id="logFilter" 
               v-model="logFilter" 
-              :class="isDark ? 'block w-full md:w-64 px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500' : 'block w-full md:w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'"
+              :class="isDark ? 'block w-full px-3 py-2 border border-gray-600 bg-gray-700 text-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm' : 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm'"
             >
               <option value="">Alle hendelser</option>
               <option value="printer_start">3D-print startet</option>
@@ -438,9 +440,9 @@
           <button 
             v-if="logs.length > 0"
             @click="showDeleteAllConfirm = true"
-            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2"
+            class="w-full sm:w-auto px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2 text-sm font-semibold"
           >
-            ✕ Slett alle logger
+            ✕ <span class="hidden sm:inline">Slett alle logger</span><span class="inline sm:hidden">Slett alt</span>
           </button>
         </div>
 
@@ -515,24 +517,26 @@
 
       <!-- Users Tab -->
       <div v-show="activeTab === 'users'" :class="isDark ? 'bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-700' : 'bg-white rounded-xl shadow-lg p-6'">
-        <div class="flex justify-between items-center mb-6">
-          <h1 :class="isDark ? 'text-3xl font-bold text-white' : 'text-3xl font-bold text-gray-800'">Brukeraktivitet</h1>
-          <div class="flex gap-2">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 sm:gap-0">
+          <h1 :class="isDark ? 'text-2xl sm:text-3xl font-bold text-white' : 'text-2xl sm:text-3xl font-bold text-gray-800'">Brukeraktivitet</h1>
+          <div class="flex gap-2 w-full sm:w-auto">
             <button @click="refreshUserActivity" 
-              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-2"
+              class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 sm:px-4 py-2 rounded-lg transition flex items-center justify-center gap-2 text-sm sm:text-base"
               :disabled="loadingUserActivity">
-              <svg class="w-5 h-5" :class="{ 'animate-spin': loadingUserActivity }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0" :class="{ 'animate-spin': loadingUserActivity }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
               </svg>
-              {{ loadingUserActivity ? 'Oppdaterer...' : 'Oppdater' }}
+              <span class="hidden sm:inline">{{ loadingUserActivity ? 'Oppdaterer...' : 'Oppdater' }}</span>
+              <span class="inline sm:hidden">{{ loadingUserActivity ? '...' : '↻' }}</span>
             </button>
             <button @click="showDeleteUserActivityConfirm = true"
-              class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-2"
+              class="flex-1 sm:flex-none bg-red-600 hover:bg-red-700 text-white font-semibold px-3 sm:px-4 py-2 rounded-lg transition flex items-center justify-center gap-2 text-sm sm:text-base"
               :disabled="userActivityLogs.length === 0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
               </svg>
-              Slett alt
+              <span class="hidden sm:inline">Slett alt</span>
+              <span class="inline sm:hidden">✕</span>
             </button>
           </div>
         </div>
@@ -588,54 +592,57 @@
         <h1 :class="isDark ? 'text-3xl font-bold mb-6 text-white' : 'text-3xl font-bold mb-6 text-gray-800'">Adminbrukere</h1>
 
         <!-- Add user form -->
-        <div :class="isDark ? 'border border-gray-700 rounded-lg p-6 mb-6' : 'border border-gray-200 rounded-lg p-6 mb-6'">
-          <h2 :class="isDark ? 'text-xl font-bold mb-4 text-white' : 'text-xl font-bold mb-4 text-gray-800'">Legg til bruker</h2>
-          <form @submit.prevent="addAdminUser" class="flex gap-3 flex-wrap">
+        <div :class="isDark ? 'border border-gray-700 rounded-lg p-3 sm:p-6 mb-6' : 'border border-gray-200 rounded-lg p-3 sm:p-6 mb-6'">
+          <h2 :class="isDark ? 'text-lg sm:text-xl font-bold mb-4 text-white' : 'text-lg sm:text-xl font-bold mb-4 text-gray-800'">Legg til bruker</h2>
+          <form @submit.prevent="addAdminUser" class="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <input v-model="newUserForm.username" type="text" placeholder="Brukernavn" maxlength="50"
-              :class="isDark ? 'px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white w-48' : 'px-3 py-2 border border-gray-300 rounded-md w-48'" />
+              :class="isDark ? 'flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white text-sm' : 'flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm'" />
             <input v-model="newUserForm.password" type="password" placeholder="Passord"
-              :class="isDark ? 'px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white w-48' : 'px-3 py-2 border border-gray-300 rounded-md w-48'" />
+              :class="isDark ? 'flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white text-sm' : 'flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm'" />
             <button type="submit"
-              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 sm:px-4 py-2 rounded-lg transition flex items-center justify-center gap-2 text-sm whitespace-nowrap">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
               </svg>
-              Legg til
+              <span class="hidden sm:inline">Legg til</span>
+              <span class="inline sm:hidden">+</span>
             </button>
           </form>
-          <p v-if="addUserError" class="text-red-500 text-sm mt-2">{{ addUserError }}</p>
-          <p v-if="addUserSuccess" class="text-green-600 text-sm mt-2">Bruker lagt til!</p>
+          <p v-if="addUserError" class="text-red-500 text-xs sm:text-sm mt-2">{{ addUserError }}</p>
+          <p v-if="addUserSuccess" class="text-green-600 text-xs sm:text-sm mt-2">Bruker lagt til!</p>
         </div>
 
         <!-- Users table -->
-        <div v-if="adminUsers.length > 0" :class="isDark ? 'bg-gray-700 border border-gray-600 rounded-lg overflow-hidden' : 'bg-white border border-gray-200 rounded-lg overflow-hidden'">
+        <div v-if="adminUsers.length > 0" :class="isDark ? 'bg-gray-700 border border-gray-600 rounded-lg overflow-x-auto' : 'bg-white border border-gray-200 rounded-lg overflow-x-auto'">
           <table class="w-full">
             <thead :class="isDark ? 'bg-gray-600 border-b border-gray-500' : 'bg-gray-100 border-b border-gray-200'">
               <tr>
-                <th :class="isDark ? 'px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider' : 'px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'">Brukernavn</th>
-                <th :class="isDark ? 'px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider' : 'px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'">Opprettet</th>
-                <th :class="isDark ? 'px-4 py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider' : 'px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'">Handlinger</th>
+                <th :class="isDark ? 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider' : 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'">Brukernavn</th>
+                <th :class="isDark ? 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider hidden md:table-cell' : 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider hidden md:table-cell'">Opprettet</th>
+                <th :class="isDark ? 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-200 uppercase tracking-wider' : 'px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider'">Handlinger</th>
               </tr>
             </thead>
             <tbody :class="isDark ? 'divide-y divide-gray-600' : 'divide-y divide-gray-200'">
               <tr v-for="user in adminUsers" :key="user.id" :class="isDark ? 'hover:bg-gray-600 transition-colors' : 'hover:bg-gray-50 transition-colors'">
-                <td :class="isDark ? 'px-4 py-3 font-medium text-white' : 'px-4 py-3 font-medium text-gray-800'">{{ user.username }}</td>
-                <td :class="isDark ? 'px-4 py-3 text-sm text-gray-300' : 'px-4 py-3 text-sm text-gray-600'">{{ formatDateTime(user.createdAt) }}</td>
-                <td class="px-4 py-3">
-                  <div class="flex gap-2">
+                <td :class="isDark ? 'px-2 sm:px-4 py-2 sm:py-3 font-medium text-white text-sm' : 'px-2 sm:px-4 py-2 sm:py-3 font-medium text-gray-800 text-sm'">{{ user.username }}</td>
+                <td :class="isDark ? 'px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-300 hidden md:table-cell' : 'px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-600 hidden md:table-cell'">{{ formatDateTime(user.createdAt) }}</td>
+                <td class="px-2 sm:px-4 py-2 sm:py-3">
+                  <div class="flex gap-1 flex-wrap">
                     <button @click="openEditUser(user)"
-                      class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1 rounded transition flex items-center gap-1">
+                      class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-2 sm:px-3 py-1 rounded transition flex items-center gap-1 whitespace-nowrap">
                       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                       </svg>
-                      Rediger
+                      <span class="hidden sm:inline">Rediger</span>
+                      <span class="inline sm:hidden">✎</span>
                     </button>
                     <button @click="confirmDeleteAdminUser(user)"
-                      class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3 py-1 rounded transition flex items-center gap-1">
+                      class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-2 sm:px-3 py-1 rounded transition flex items-center gap-1 whitespace-nowrap">
                       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                       </svg>
-                      Slett
+                      <span class="hidden sm:inline">Slett</span>
+                      <span class="inline sm:hidden">✕</span>
                     </button>
                   </div>
                 </td>
