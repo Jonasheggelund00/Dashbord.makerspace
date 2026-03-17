@@ -1,7 +1,7 @@
 {
   "192.168.1.136": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-03-16T15:15:46.421Z",
+    "state": "PRINTING",
+    "lastUpdate": "2026-03-17T11:56:56.520Z",
     "logged": true
   },
   "192.168.1.132": {
@@ -10,14 +10,14 @@
     "logged": false
   },
   "192.168.1.67": {
-    "state": "PRINTING",
-    "lastUpdate": "2026-03-11T13:16:02.421Z",
+    "state": "FINISHED",
+    "lastUpdate": "2026-03-17T11:20:21.382Z",
     "logged": true
   },
   "192.168.1.211": {
-    "state": "IDLE",
-    "lastUpdate": "2026-03-16T15:15:46.424Z",
-    "logged": false
+    "state": "PRINTING",
+    "lastUpdate": "2026-03-17T11:59:46.063Z",
+    "logged": true
   },
   "192.168.1.166": {
     "state": "IDLE",
@@ -26,17 +26,17 @@
   },
   "192.168.1.241": {
     "state": "PRINTING",
-    "lastUpdate": "2026-03-16T15:15:46.441Z",
+    "lastUpdate": "2026-03-17T11:56:56.549Z",
     "logged": true
   },
   "192.168.1.219": {
-    "state": "PRINTING",
-    "lastUpdate": "2026-03-16T15:15:46.427Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-03-17T11:20:21.386Z",
+    "logged": false
   },
   "192.168.1.66": {
     "state": "IDLE",
-    "lastUpdate": "2026-03-11T12:53:39.965Z",
+    "lastUpdate": "2026-03-17T12:00:16.126Z",
     "logged": false
   },
   "192.168.1.253": {

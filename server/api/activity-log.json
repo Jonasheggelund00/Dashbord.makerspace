@@ -1,5 +1,60 @@
 [
   {
+    "id": "1773748786064v6dj0hozz",
+    "timestamp": "2026-03-17T11:59:46.064Z",
+    "type": "printer_start",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "17737486165506xx78zyo6",
+    "timestamp": "2026-03-17T11:56:56.550Z",
+    "type": "printer_start",
+    "device": "prusa-xl",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-xl",
+      "ip": "192.168.1.241"
+    }
+  },
+  {
+    "id": "1773748616521fdtpnz7cv",
+    "timestamp": "2026-03-17T11:56:56.521Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136"
+    }
+  },
+  {
+    "id": "177374642138711wap2joh",
+    "timestamp": "2026-03-17T11:20:21.387Z",
+    "type": "printer_end",
+    "device": "prusa-xl",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-xl",
+      "ip": "192.168.1.241"
+    }
+  },
+  {
+    "id": "177374642138414dz1ymtq",
+    "timestamp": "2026-03-17T11:20:21.384Z",
+    "type": "printer_end",
+    "device": "MK4S 07",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.67"
+    }
+  },
+  {
     "id": "1773674146442at1szj6fp",
     "timestamp": "2026-03-16T15:15:46.442Z",
     "type": "printer_start",
