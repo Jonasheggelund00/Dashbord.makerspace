@@ -1,5 +1,26 @@
 [
   {
+    "id": "1775557617656msmv2hb",
+    "timestamp": "2026-04-07T10:26:57.656Z",
+    "username": "brukertest",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1775557605326q6uggjg",
+    "timestamp": "2026-04-07T10:26:45.326Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1775557588482dji2vtv",
+    "timestamp": "2026-04-07T10:26:28.482Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
     "id": "1774452428185qbpw59y",
     "timestamp": "2026-03-25T15:27:08.185Z",
     "username": "Jonas00",

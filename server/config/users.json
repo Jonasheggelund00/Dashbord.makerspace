@@ -16,5 +16,11 @@
     "username": "Testbruker",
     "passwordHash": "$2b$10$lkN11tSc7Rnl91wTIk8NeOyB5i/QMlcDS6KNSmT5v5IHgCKDf4qYa",
     "createdAt": "2026-03-11T13:50:45.287Z"
+  },
+  {
+    "id": "mnoh5hoxiu38",
+    "username": "brukertest",
+    "passwordHash": "$2b$10$V31HzizYV8n28hn/p1gV9u.MGKwjPDojfYWgkUfcVs.pDSvFtFGXa",
+    "createdAt": "2026-04-07T10:26:41.745Z"
   }
 ]

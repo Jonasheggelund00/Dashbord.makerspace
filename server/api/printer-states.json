@@ -1,8 +1,8 @@
 {
   "192.168.1.136": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-03-25T15:27:08.858Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-07T10:26:20.569Z",
+    "logged": false
   },
   "192.168.1.132": {
     "state": "IDLE",
@@ -10,19 +10,19 @@
     "logged": false
   },
   "192.168.1.67": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-03-25T15:27:08.874Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-07T10:26:20.477Z",
+    "logged": false
   },
   "192.168.1.211": {
-    "state": "PRINTING",
-    "lastUpdate": "2026-03-25T15:27:08.904Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-07T10:26:20.472Z",
+    "logged": false
   },
   "192.168.1.166": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-03-25T15:38:41.613Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-07T10:26:20.474Z",
+    "logged": false
   },
   "192.168.1.241": {
     "state": "IDLE",
@@ -30,9 +30,9 @@
     "logged": false
   },
   "192.168.1.219": {
-    "state": "PRINTING",
-    "lastUpdate": "2026-03-17T13:24:43.166Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-07T10:26:20.475Z",
+    "logged": false
   },
   "192.168.1.66": {
     "state": "IDLE",
