@@ -223,10 +223,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 19V6a3 3 0 016 0v13a5 5 0 11-6 0z"/>
               </svg>
-              <span class="text-xs text-gray-400 font-medium">Temperatur</span>
+              <span class="text-sm text-gray-500 font-medium">Temperatur</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900">
-              {{ sensorData.temperature }}<span class="text-base font-normal text-gray-400">&#176;C</span>
+            <p class="text-2xl font-bold text-gray-900">
+              {{ sensorData.temperature }}<span class="text-sm font-normal text-gray-400">&#176;C</span>
             </p>
           </div>
 
@@ -237,10 +237,10 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 2C6 10 6 14 12 18c6-4 6-8 0-16z"/>
               </svg>
-              <span class="text-xs text-gray-400 font-medium">Luftfuktighet</span>
+              <span class="text-sm text-gray-500 font-medium">Luftfuktighet</span>
             </div>
-            <p class="text-3xl font-bold text-gray-900">
-              {{ sensorData.humidity }}<span class="text-base font-normal text-gray-400">%</span>
+            <p class="text-2xl font-bold text-gray-900">
+              {{ sensorData.humidity }}<span class="text-sm font-normal text-gray-400">%</span>
             </p>
           </div>
 
@@ -251,14 +251,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
-              <span class="text-xs text-gray-400 font-medium">Lys</span>
+              <span class="text-sm text-gray-500 font-medium">Lys</span>
             </div>
             <div class="flex items-center gap-2">
               <span
                 :class="lightOn ? 'bg-yellow-400' : 'bg-gray-300'"
                 class="w-2.5 h-2.5 rounded-full flex-shrink-0"
               ></span>
-              <p class="text-3xl font-bold text-gray-900">{{ lightOn ? 'På' : 'Av' }}</p>
+              <p class="text-2xl font-bold text-gray-900">{{ lightOn ? 'På' : 'Av' }}</p>
             </div>
           </div>
 
@@ -269,14 +269,14 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M13 10V3L4 14h7v7l9-11h-7z"/>
               </svg>
-              <span class="text-xs text-gray-400 font-medium">Bevegelse</span>
+              <span class="text-sm text-gray-500 font-medium">Bevegelse</span>
             </div>
             <div class="flex items-center gap-2">
               <span
                 :class="sensorData.motion ? 'bg-green-400 animate-pulse' : 'bg-gray-300'"
                 class="w-2.5 h-2.5 rounded-full flex-shrink-0"
               ></span>
-              <p class="text-3xl font-bold text-gray-900">{{ sensorData.motion ? 'Ja' : 'Nei' }}</p>
+              <p class="text-2xl font-bold text-gray-900">{{ sensorData.motion ? 'Ja' : 'Nei' }}</p>
             </div>
           </div>
 
@@ -309,7 +309,7 @@
               <p class="font-bold text-lg">3D-Printere</p>
               <p class="text-orange-200 text-sm">Administrer og overvåk</p>
             </div>
-            <svg class="w-6 h-6 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
@@ -322,7 +322,7 @@
               <p class="font-bold text-lg">Loddestasjon</p>
               <p class="text-blue-200 text-sm">Sjekk tilgjengelighet</p>
             </div>
-            <svg class="w-6 h-6 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
@@ -335,7 +335,7 @@
               <p class="font-bold text-lg">Laserkutter</p>
               <p class="text-purple-200 text-sm">Se status og effekt</p>
             </div>
-            <svg class="w-6 h-6 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
@@ -344,11 +344,11 @@
             to="/storformatprinter"
             class="group flex items-center justify-between bg-sky-500 hover:bg-sky-600 text-white rounded-2xl p-5 transition-colors duration-200"
           >
-            <div>
-              <p class="font-bold text-lg">Storformatskriver</p>
+            <div class="min-w-0">
+              <p class="font-bold text-lg break-words">Storformatskriver</p>
               <p class="text-sky-200 text-sm">Blekk, status og jobbkø</p>
             </div>
-            <svg class="w-6 h-6 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>

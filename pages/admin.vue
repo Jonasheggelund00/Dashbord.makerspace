@@ -471,9 +471,9 @@
           </button>
 
           <p :class="isDark ? 'text-blue-200 text-sm' : 'text-blue-800 text-sm'">
-            <strong>Om logging:</strong> Her vil du kunne se all aktivitet fra 3D-printere, laserkutter og loddestasjon.
-            Systemet logger automatisk når enheter slås på/av og når prints starter. Dette er tilgjengelig kun for
-            admin-brukere.
+            <strong>Om logging:</strong> Her vil du kunne se all aktivitet fra 3D-printere, laserkutter, loddestasjon og
+            storformatsskriver. Systemet logger automatisk når enheter er i bruk og når prints starter eller avsluttes.
+            Dette er tilgjengelig kun for admin-brukere.
           </p>
         </div>
 
@@ -493,10 +493,16 @@
               <option value="printer_stopped">3D-print stoppet</option>
               <option value="printer_error">3D-printer feil</option>
               <option value="printer_attention">3D-printer trenger oppmerksomhet</option>
+              <option value="laserkutter_in_use">Laserkutter i bruk</option>
+              <option value="laserkutter_idle">Laserkutter ledig</option>
               <option value="laserkutter_on">Laserkutter på</option>
               <option value="laserkutter_off">Laserkutter av</option>
+              <option value="loddestasjon_in_use">Loddestasjon i bruk</option>
+              <option value="loddestasjon_idle">Loddestasjon ledig</option>
               <option value="loddestasjon_on">Loddestasjon på</option>
               <option value="loddestasjon_off">Loddestasjon av</option>
+              <option value="storformat_in_use">Storformatsskriver i bruk</option>
+              <option value="storformat_idle">Storformatsskriver ledig</option>
             </select>
           </div>
           <button v-if="logs.length > 0" @click="showDeleteAllConfirm = true"
@@ -1345,9 +1351,21 @@ function getLogTypeClass(type: string) {
       return 'bg-blue-100 text-blue-800';
     case 'laserkutter_off':
       return 'bg-gray-100 text-gray-800';
+    case 'laserkutter_in_use':
+      return 'bg-green-100 text-green-800';
+    case 'laserkutter_idle':
+      return 'bg-gray-100 text-gray-800';
     case 'loddestasjon_on':
       return 'bg-yellow-100 text-yellow-800';
     case 'loddestasjon_off':
+      return 'bg-gray-100 text-gray-800';
+    case 'loddestasjon_in_use':
+      return 'bg-green-100 text-green-800';
+    case 'loddestasjon_idle':
+      return 'bg-gray-100 text-gray-800';
+    case 'storformat_in_use':
+      return 'bg-green-100 text-green-800';
+    case 'storformat_idle':
       return 'bg-gray-100 text-gray-800';
     default:
       return 'bg-gray-100 text-gray-800';
@@ -1361,19 +1379,31 @@ function getLogTypeLabel(type: string) {
     case 'printer_end':
       return 'Print avsluttet';
     case 'printer_stopped':
-      return '🛑 Print stoppet';
+      return 'Print stoppet';
     case 'printer_error':
-      return '❌ Printer feil';
+      return 'Printer feil';
     case 'printer_attention':
-      return '⚠️ Trenger oppmerksomhet';
+      return 'Trenger oppmerksomhet';
+    case 'laserkutter_in_use':
+      return 'Laserkutter i bruk';
+    case 'laserkutter_idle':
+      return 'Laserkutter ledig';
     case 'laserkutter_on':
-      return '🔵 Laserkutter på';
+      return 'Laserkutter på';
     case 'laserkutter_off':
-      return '⚫ Laserkutter av';
+      return 'Laserkutter av';
+    case 'loddestasjon_in_use':
+      return 'Loddestasjon i bruk';
+    case 'loddestasjon_idle':
+      return 'Loddestasjon ledig';
     case 'loddestasjon_on':
-      return '🟡 Loddestasjon på';
+      return 'Loddestasjon på';
     case 'loddestasjon_off':
-      return '⚫ Loddestasjon av';
+      return 'Loddestasjon av';
+    case 'storformat_in_use':
+      return 'Storformatsskriver i bruk';
+    case 'storformat_idle':
+      return 'Storformatsskriver ledig';
     default:
       return type;
   }

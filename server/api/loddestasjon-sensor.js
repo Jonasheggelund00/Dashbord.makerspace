@@ -1,3 +1,42 @@
+import { logActivity } from '../utils/logger.js';
+
+const LODDESTASJON_DEVICE_NAME = 'Loddestasjon';
+const LODDESTASJON_IN_USE_THRESHOLD = 35;
+let lastLoddestasjonInUse = null;
+
+async function maybeLogLoddestasjonUsage(inUse, thermalMax, sensorUpdated) {
+  if (typeof inUse !== 'boolean') return;
+
+  if (lastLoddestasjonInUse === null) {
+    lastLoddestasjonInUse = inUse;
+    return;
+  }
+
+  if (lastLoddestasjonInUse === inUse) return;
+
+  lastLoddestasjonInUse = inUse;
+  const logType = inUse ? 'loddestasjon_in_use' : 'loddestasjon_idle';
+
+  try {
+    const metadata = { inUse };
+    if (typeof thermalMax === 'number') {
+      metadata.thermalMax = thermalMax;
+      metadata.threshold = LODDESTASJON_IN_USE_THRESHOLD;
+    }
+    if (sensorUpdated) {
+      metadata.sensorUpdated = sensorUpdated;
+    }
+
+    await logActivity({
+      type: logType,
+      device: LODDESTASJON_DEVICE_NAME,
+      metadata
+    });
+  } catch (e) {
+    console.error('Feil ved logging av loddestasjon bruk:', e);
+  }
+}
+
 export default defineEventHandler(async (event) => {
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxZmVlNTU3OGRmODg0MmEzODE4MzhjODA2ZjEyNjYzYiIsImlhdCI6MTc2MTc0NDczOCwiZXhwIjoyMDc3MTA0NzM4fQ.pVtFPYynPhypCZRqlWymkAvqlqpyNqtIR15-KILzer8';
   const headers = {
@@ -158,6 +197,15 @@ export default defineEventHandler(async (event) => {
         pixels4 = prevCache.pixels4 || '';
         thermalStale = true;
       }
+    }
+
+    const thermalMaxRaw = sensorDataMap.thermalMax?.state;
+    const thermalMaxValue = typeof thermalMaxRaw !== 'undefined' ? parseFloat(thermalMaxRaw) : null;
+    const thermalMaxNumber = Number.isFinite(thermalMaxValue) ? thermalMaxValue : null;
+    const inUse = thermalMaxNumber !== null ? thermalMaxNumber > LODDESTASJON_IN_USE_THRESHOLD : null;
+
+    if (inUse !== null) {
+      await maybeLogLoddestasjonUsage(inUse, thermalMaxNumber, sensorDataMap.thermalMax?.last_updated);
     }
 
     const errorMessages = [];

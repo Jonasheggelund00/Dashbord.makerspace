@@ -1,3 +1,37 @@
+import { logActivity } from '../utils/logger.js';
+
+const LASERKUTTER_DEVICE_NAME = 'Laserkutter';
+let lastLaserInUse = null;
+
+async function maybeLogLaserkutterUsage(inUse, sensorUpdated) {
+  if (typeof inUse !== 'boolean') return;
+
+  if (lastLaserInUse === null) {
+    lastLaserInUse = inUse;
+    return;
+  }
+
+  if (lastLaserInUse === inUse) return;
+
+  lastLaserInUse = inUse;
+  const logType = inUse ? 'laserkutter_in_use' : 'laserkutter_idle';
+
+  try {
+    const metadata = { inUse };
+    if (sensorUpdated) {
+      metadata.sensorUpdated = sensorUpdated;
+    }
+
+    await logActivity({
+      type: logType,
+      device: LASERKUTTER_DEVICE_NAME,
+      metadata
+    });
+  } catch (e) {
+    console.error('Feil ved logging av laserkutter bruk:', e);
+  }
+}
+
 export default defineEventHandler(async (event) => {
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIxZmVlNTU3OGRmODg0MmEzODE4MzhjODA2ZjEyNjYzYiIsImlhdCI6MTc2MTc0NDczOCwiZXhwIjoyMDc3MTA0NzM4fQ.pVtFPYynPhypCZRqlWymkAvqlqpyNqtIR15-KILzer8';
   const headers = {
@@ -59,12 +93,19 @@ export default defineEventHandler(async (event) => {
       return Number.isFinite(n) ? Number(n.toFixed(2)) : 0
     }
 
+    const hasInUseData = sensorDataMap.inUse && typeof sensorDataMap.inUse.state !== 'undefined'
+    const inUse = hasInUseData ? sensorDataMap.inUse.state === 'on' : null
+
+    if (inUse !== null) {
+      await maybeLogLaserkutterUsage(inUse, sensorDataMap.inUse?.last_updated)
+    }
+
     return {
       x: parseNumber(sensorDataMap.x),
       y: parseNumber(sensorDataMap.y),
       z: parseNumber(sensorDataMap.z),
       total: parseNumber(sensorDataMap.total),
-      inUse: sensorDataMap.inUse?.state === 'on' || false,
+      inUse: inUse === null ? false : inUse,
       last_updated: sensorDataMap.inUse?.last_updated || new Date().toISOString()
     };
   } catch (error) {

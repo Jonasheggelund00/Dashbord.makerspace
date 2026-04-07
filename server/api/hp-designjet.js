@@ -1,5 +1,39 @@
+import { logActivity } from '../utils/logger.js';
+
 const HP_IP = '192.168.1.11';
 const TIMEOUT_MS = 4000;
+const DESIGNJET_DEVICE_NAME = 'HP DesignJet T630';
+let lastDesignjetInUse = null;
+
+async function maybeLogDesignjetUsage(isPrinting, statusOk, statusData, jobsData) {
+  if (!statusOk) return;
+  if (typeof isPrinting !== 'boolean') return;
+
+  if (lastDesignjetInUse === null) {
+    lastDesignjetInUse = isPrinting;
+    return;
+  }
+
+  if (lastDesignjetInUse === isPrinting) return;
+
+  lastDesignjetInUse = isPrinting;
+  const logType = isPrinting ? 'storformat_in_use' : 'storformat_idle';
+
+  try {
+    await logActivity({
+      type: logType,
+      device: DESIGNJET_DEVICE_NAME,
+      metadata: {
+        isPrinting,
+        statusCategory: statusData?.category,
+        statusMessage: statusData?.message,
+        jobCount: Array.isArray(jobsData) ? jobsData.length : 0
+      }
+    });
+  } catch (e) {
+    console.error('Feil ved logging av storformatsskriver bruk:', e);
+  }
+}
 
 // Hjelpefunksjon for fetch med timeout
 async function fetchWithTimeout(url, timeout = TIMEOUT_MS) {
@@ -302,6 +336,8 @@ export default defineEventHandler(async () => {
 
   const isPrinting = statusData.category === 'processing'
     || jobsData.some(j => j.stateRaw?.toLowerCase().includes('processing'));
+
+  await maybeLogDesignjetUsage(isPrinting, statusOk, statusData, jobsData);
 
   return {
     online: statusOk,

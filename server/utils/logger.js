@@ -5,7 +5,9 @@ const LOG_FILE = 'server/api/activity-log.json';
 /**
  * Logger en hendelse til logg-filen
  * @param {Object} entry - Loggoppføring
- * @param {string} entry.type - Type hendelse: 'printer_start', 'printer_end', 'laserkutter_on', 'laserkutter_off', 'loddestasjon_on', 'loddestasjon_off'
+ * @param {string} entry.type - Type hendelse: 'printer_start', 'printer_end', 'printer_stopped', 'printer_error',
+ * 'printer_attention', 'laserkutter_on', 'laserkutter_off', 'laserkutter_in_use', 'laserkutter_idle',
+ * 'loddestasjon_on', 'loddestasjon_off', 'loddestasjon_in_use', 'loddestasjon_idle', 'storformat_in_use', 'storformat_idle'
  * @param {string} entry.device - Enhetsnamn (f.eks. 'Prusa MK4S', 'Laserkutter', 'Loddestasjon')
  * @param {Object} entry.metadata - Ekstra data (f.eks. filnavn, filament type, osv.)
  */
