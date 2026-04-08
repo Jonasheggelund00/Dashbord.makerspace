@@ -1,5 +1,607 @@
 [
   {
+    "id": "1775563601377b96tlsszl",
+    "timestamp": "2026-04-07T12:06:41.377Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 35.6519088745117,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:06:40.214926+00:00"
+    }
+  },
+  {
+    "id": "17755635969749q86k672t",
+    "timestamp": "2026-04-07T12:06:36.974Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.9799423217773,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:06:36.007690+00:00"
+    }
+  },
+  {
+    "id": "1775563543431ozhu7ql3m",
+    "timestamp": "2026-04-07T12:05:43.431Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 47.1691513061523,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:05:40.242332+00:00"
+    }
+  },
+  {
+    "id": "1775563523145wsf5gwod6",
+    "timestamp": "2026-04-07T12:05:23.145Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 28.8304691314697,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:05:21.862602+00:00"
+    }
+  },
+  {
+    "id": "1775563453726mz4kbhnd8",
+    "timestamp": "2026-04-07T12:04:13.726Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 37.459342956543,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:04:11.879983+00:00"
+    }
+  },
+  {
+    "id": "1775563451365ck8rqrc8q",
+    "timestamp": "2026-04-07T12:04:11.365Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 32.9078903198242,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:04:10.423164+00:00"
+    }
+  },
+  {
+    "id": "1775563439139l49ggfnci",
+    "timestamp": "2026-04-07T12:03:59.139Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 37.6082077026367,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:58.154809+00:00"
+    }
+  },
+  {
+    "id": "1775563436780mpaz39u0e",
+    "timestamp": "2026-04-07T12:03:56.780Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 31.0944766998291,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:56.030983+00:00"
+    }
+  },
+  {
+    "id": "1775563413406zgofxalix",
+    "timestamp": "2026-04-07T12:03:33.406Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 41.5456771850586,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:31.646567+00:00"
+    }
+  },
+  {
+    "id": "1775563410751axg4r8nat",
+    "timestamp": "2026-04-07T12:03:30.751Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 32.6266708374023,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:29.788036+00:00"
+    }
+  },
+  {
+    "id": "1775563406828e35t9o4lr",
+    "timestamp": "2026-04-07T12:03:26.828Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 36.6090316772461,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:26.165967+00:00"
+    }
+  },
+  {
+    "id": "17755634027624h9xay130",
+    "timestamp": "2026-04-07T12:03:22.762Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 32.3105697631836,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:22.299720+00:00"
+    }
+  },
+  {
+    "id": "1775563384788u0v6jidex",
+    "timestamp": "2026-04-07T12:03:04.788Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 35.1844100952148,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:04.106689+00:00"
+    }
+  },
+  {
+    "id": "17755633829423no3gadz1",
+    "timestamp": "2026-04-07T12:03:02.942Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 29.9430484771729,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:03:01.930377+00:00"
+    }
+  },
+  {
+    "id": "1775563376784rlmctpcd3",
+    "timestamp": "2026-04-07T12:02:56.784Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 42.3744430541992,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:56.216648+00:00"
+    }
+  },
+  {
+    "id": "17755633754806j5w2f4cl",
+    "timestamp": "2026-04-07T12:02:55.480Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 32.7011032104492,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:53.985313+00:00"
+    }
+  },
+  {
+    "id": "1775563342992xv3cgyvbk",
+    "timestamp": "2026-04-07T12:02:22.992Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 38.1356735229492,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:22.055675+00:00"
+    }
+  },
+  {
+    "id": "17755633351389qlt5yva9",
+    "timestamp": "2026-04-07T12:02:15.138Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 33.505973815918,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:14.437532+00:00"
+    }
+  },
+  {
+    "id": "1775563329697rogbmlm4o",
+    "timestamp": "2026-04-07T12:02:09.697Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 40.8847579956055,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:08.506689+00:00"
+    }
+  },
+  {
+    "id": "1775563325919vr0z72m8t",
+    "timestamp": "2026-04-07T12:02:05.919Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 33.9333114624023,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:05.135998+00:00"
+    }
+  },
+  {
+    "id": "1775563321327b8psslprd",
+    "timestamp": "2026-04-07T12:02:01.327Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 36.0570602416992,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:02:00.173683+00:00"
+    }
+  },
+  {
+    "id": "1775563316755opicpcjvn",
+    "timestamp": "2026-04-07T12:01:56.755Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 32.254264831543,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:56.369937+00:00"
+    }
+  },
+  {
+    "id": "1775563309156x3oecpbp4",
+    "timestamp": "2026-04-07T12:01:49.156Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 38.3458786010742,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:48.602521+00:00"
+    }
+  },
+  {
+    "id": "17755633067616f3vimg22",
+    "timestamp": "2026-04-07T12:01:46.761Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.0334396362305,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:46.313241+00:00"
+    }
+  },
+  {
+    "id": "1775563294745xwxfgv9xg",
+    "timestamp": "2026-04-07T12:01:34.745Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 36.3091659545898,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:33.902393+00:00"
+    }
+  },
+  {
+    "id": "1775563293193cztle7zbq",
+    "timestamp": "2026-04-07T12:01:33.193Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.6979598999023,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:32.004933+00:00"
+    }
+  },
+  {
+    "id": "1775563281277oh21dfhzc",
+    "timestamp": "2026-04-07T12:01:21.277Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 38.362663269043,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:19.781513+00:00"
+    }
+  },
+  {
+    "id": "17755632790145fs3t5sfe",
+    "timestamp": "2026-04-07T12:01:19.014Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.6917037963867,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:18.446896+00:00"
+    }
+  },
+  {
+    "id": "177556327103805muulac3",
+    "timestamp": "2026-04-07T12:01:11.038Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 69.1624374389648,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:01:10.131164+00:00"
+    }
+  },
+  {
+    "id": "177556325710123xxuoma7",
+    "timestamp": "2026-04-07T12:00:57.101Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 28.4583072662354,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:56.067439+00:00"
+    }
+  },
+  {
+    "id": "17755632554624bbuvj5om",
+    "timestamp": "2026-04-07T12:00:55.462Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 40.4702987670898,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:54.234722+00:00"
+    }
+  },
+  {
+    "id": "17755632529605q53410vq",
+    "timestamp": "2026-04-07T12:00:52.960Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.8345260620117,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:52.008591+00:00"
+    }
+  },
+  {
+    "id": "17755632389933cwwxac79",
+    "timestamp": "2026-04-07T12:00:38.993Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 40.0961532592773,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:38.275455+00:00"
+    }
+  },
+  {
+    "id": "1775563236982su4lsyj56",
+    "timestamp": "2026-04-07T12:00:36.982Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 33.9379196166992,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:36.054719+00:00"
+    }
+  },
+  {
+    "id": "17755632332568ng7hhm4n",
+    "timestamp": "2026-04-07T12:00:33.256Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 35.950065612793,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:32.018181+00:00"
+    }
+  },
+  {
+    "id": "1775563230947a46yzce6j",
+    "timestamp": "2026-04-07T12:00:30.947Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 34.7685775756836,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T12:00:30.501467+00:00"
+    }
+  },
+  {
+    "id": "1775563135756inefwcqiv",
+    "timestamp": "2026-04-07T11:58:55.756Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 39.9030990600586,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T11:58:55.382256+00:00"
+    }
+  },
+  {
+    "id": "17755631311206o9feajlx",
+    "timestamp": "2026-04-07T11:58:51.120Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 33.2080612182617,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T11:58:50.470551+00:00"
+    }
+  },
+  {
+    "id": "1775562748749v4xvagamr",
+    "timestamp": "2026-04-07T11:52:28.749Z",
+    "type": "printer_start",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "17755626177411ugrzat4h",
+    "timestamp": "2026-04-07T11:50:17.741Z",
+    "type": "printer_start",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "17755624837327k992rr10",
+    "timestamp": "2026-04-07T11:48:03.732Z",
+    "type": "printer_stopped",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "STOPPED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "17755624737563ha481jfs",
+    "timestamp": "2026-04-07T11:47:53.756Z",
+    "type": "printer_start",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "1775562453770my92onivn",
+    "timestamp": "2026-04-07T11:47:33.770Z",
+    "type": "printer_start",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "1775562443766r0e1s7iv2",
+    "timestamp": "2026-04-07T11:47:23.766Z",
+    "type": "printer_attention",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "ATTENTION",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "1775562416654s2irziw45",
+    "timestamp": "2026-04-07T11:46:56.654Z",
+    "type": "printer_stopped",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "STOPPED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "177556240125839rvmet0g",
+    "timestamp": "2026-04-07T11:46:41.258Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 36.4692611694336,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T11:46:40.105396+00:00"
+    }
+  },
+  {
+    "id": "1775562376665pd6cpw4u8",
+    "timestamp": "2026-04-07T11:46:16.665Z",
+    "type": "printer_stopped",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "STOPPED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "1775562346676yd57ikasv",
+    "timestamp": "2026-04-07T11:45:46.676Z",
+    "type": "printer_stopped",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "STOPPED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
+    "id": "1775562340110rkp1m4bta",
+    "timestamp": "2026-04-07T11:45:40.110Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 25.7702884674072,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T11:45:39.362327+00:00"
+    }
+  },
+  {
+    "id": "1775562338171jlgselxiw",
+    "timestamp": "2026-04-07T11:45:38.171Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 66.8875961303711,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-07T11:45:37.445480+00:00"
+    }
+  },
+  {
+    "id": "1775562246026mh5toe6qz",
+    "timestamp": "2026-04-07T11:44:06.026Z",
+    "type": "printer_start",
+    "device": "MK4S 09",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.219"
+    }
+  },
+  {
     "id": "1775560413917rjqle6bj7",
     "timestamp": "2026-04-07T11:13:33.917Z",
     "type": "loddestasjon_idle",

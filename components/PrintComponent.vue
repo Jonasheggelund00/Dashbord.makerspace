@@ -192,13 +192,25 @@
                   <span class="filename-text" :title="printer.job.file.display_name">{{ printer.job.file.display_name
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
-                    :href="`/api/download-file?ip=${printer.ip}&path=${encodeURIComponent(printer.job.file.refs.download)}&filename=${encodeURIComponent(printer.job.file.display_name)}`"
+                    :href="getDownloadUrl(printer)"
                     class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
                     </svg>
                   </a>
+                  <button
+                    v-if="printer.job.file.refs && printer.job.file.refs.download"
+                    type="button"
+                    class="download-btn preview-btn"
+                    :title="'Forhandsvisning av ' + printer.job.file.display_name"
+                    @click="openGcodePreview(printer)"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
+                      <circle cx="12" cy="12" r="3.5" />
+                    </svg>
+                  </button>
                 </div>
                 <div class="progress-section">
                   <div class="progress-header">
@@ -308,13 +320,25 @@
                   <span class="filename-text" :title="printer.job.file.display_name">{{ printer.job.file.display_name
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
-                    :href="`/api/download-file?ip=${printer.ip}&path=${encodeURIComponent(printer.job.file.refs.download)}&filename=${encodeURIComponent(printer.job.file.display_name)}`"
+                    :href="getDownloadUrl(printer)"
                     class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
                     </svg>
                   </a>
+                  <button
+                    v-if="printer.job.file.refs && printer.job.file.refs.download"
+                    type="button"
+                    class="download-btn preview-btn"
+                    :title="'Forhandsvisning av ' + printer.job.file.display_name"
+                    @click="openGcodePreview(printer)"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
+                      <circle cx="12" cy="12" r="3.5" />
+                    </svg>
+                  </button>
                 </div>
                 <div class="progress-section">
                   <div class="progress-header">
@@ -428,13 +452,25 @@
                   <span class="filename-text" :title="printer.job.file.display_name">{{ printer.job.file.display_name
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
-                    :href="`/api/download-file?ip=${printer.ip}&path=${encodeURIComponent(printer.job.file.refs.download)}&filename=${encodeURIComponent(printer.job.file.display_name)}`"
+                    :href="getDownloadUrl(printer)"
                     class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
                     </svg>
                   </a>
+                  <button
+                    v-if="printer.job.file.refs && printer.job.file.refs.download"
+                    type="button"
+                    class="download-btn preview-btn"
+                    :title="'Forhandsvisning av ' + printer.job.file.display_name"
+                    @click="openGcodePreview(printer)"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
+                      <circle cx="12" cy="12" r="3.5" />
+                    </svg>
+                  </button>
                 </div>
                 <div class="progress-section">
                   <div class="progress-header">
@@ -492,6 +528,24 @@
       <div class="spinner border-4 border-orange-400 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
     </div>
     <div v-if="error" class="error-msg">{{ error }}</div>
+
+    <div v-if="gcodeModalOpen" class="gcode-modal-backdrop" @click.self="closeGcodePreview">
+      <div class="gcode-modal-card">
+        <div class="gcode-modal-header">
+          <div class="gcode-modal-titles">
+            <div class="gcode-modal-title">GCode-forhandsvisning</div>
+            <div class="gcode-modal-subtitle">{{ gcodeFileName }}</div>
+          </div>
+          <button type="button" class="gcode-close-btn" @click="closeGcodePreview">Lukk</button>
+        </div>
+        <div ref="gcodeCanvasWrapper" class="gcode-canvas-shell">
+          <canvas ref="gcodeCanvas" class="gcode-canvas"></canvas>
+          <div v-if="gcodeLoading" class="gcode-overlay">Laster forhåndsvisning... dette tar litt tid.</div>
+          <div v-else-if="gcodeError" class="gcode-overlay gcode-error">{{ gcodeError }}</div>
+        </div>
+        <div class="gcode-hint">Dra for å rotere, scroll for å zoome, høyreklikk for å panorere.</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -857,6 +911,10 @@ h1 {
   color: inherit;
 }
 
+.preview-btn:hover {
+  color: #2563eb;
+}
+
 .progress-section {
   margin-bottom: 0.875rem;
 }
@@ -1086,6 +1144,144 @@ h1 {
   background: #3b82f6;
 }
 
+/* --- GCode preview modal --- */
+.gcode-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 60;
+}
+
+.gcode-modal-card {
+  width: min(900px, 92vw);
+  max-height: 85vh;
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  padding: 1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+}
+
+.print-dark .gcode-modal-card {
+  background: #0f172a;
+  border-color: #1f2937;
+}
+
+.gcode-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.gcode-modal-titles {
+  min-width: 0;
+}
+
+.gcode-modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.print-dark .gcode-modal-title {
+  color: #f8fafc;
+}
+
+.gcode-modal-subtitle {
+  font-size: 0.8rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60vw;
+}
+
+.print-dark .gcode-modal-subtitle {
+  color: #94a3b8;
+}
+
+.gcode-close-btn {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #f8fafc;
+  color: #0f172a;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gcode-close-btn:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.print-dark .gcode-close-btn {
+  border-color: #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.print-dark .gcode-close-btn:hover {
+  background: #334155;
+}
+
+.gcode-canvas-shell {
+  position: relative;
+  height: 420px;
+  border-radius: 0.85rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.print-dark .gcode-canvas-shell {
+  background: #0b1220;
+  border-color: #1f2937;
+}
+
+.gcode-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.gcode-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.gcode-overlay.gcode-error {
+  background: rgba(127, 29, 29, 0.7);
+  color: #fee2e2;
+}
+
+.gcode-hint {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.print-dark .gcode-hint {
+  color: #94a3b8;
+}
+
 /* --- Feilmeldinger --- */
 .error-msg {
   color: #b91c1c;
@@ -1175,11 +1371,21 @@ h1 {
     padding: 1.5rem;
   }
 }
+
+@media (max-width: 640px) {
+  .gcode-modal-card {
+    padding: 0.9rem;
+  }
+
+  .gcode-canvas-shell {
+    height: 300px;
+  }
+}
 </style>
 
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch, nextTick } from 'vue'
 import { useState } from '#app'
 import { sharedPrinterList } from './printerState.js'
 import { useRoute } from 'vue-router'
@@ -1201,6 +1407,16 @@ const searchQuery = ref('')
 const selectedModel = ref('all')
 const selectedState = ref('all')
 const filtersOpen = ref(false)
+const gcodeModalOpen = ref(false)
+const gcodeLoading = ref(false)
+const gcodeError = ref('')
+const gcodeFileName = ref('')
+const gcodeCanvas = ref(null)
+const gcodeCanvasWrapper = ref(null)
+let gcodePreviewInstance = null
+let gcodeModulePromise = null
+const jobCache = new Map()
+const JOB_CACHE_TTL_MS = 30000
 
 // Filamentskap
 const cabinet = ref({ online: false })
@@ -1294,6 +1510,100 @@ function clearFilters() {
   selectedState.value = 'all'
 }
 
+function getDownloadUrl(printer) {
+  if (!printer?.job?.file?.refs?.download) return ''
+  const filename = printer.job.file.display_name || 'print.gcode'
+  return `/api/download-file?ip=${printer.ip}&path=${encodeURIComponent(printer.job.file.refs.download)}&filename=${encodeURIComponent(filename)}`
+}
+
+async function loadGcodeModule() {
+  if (!gcodeModulePromise) {
+    gcodeModulePromise = import('gcode-preview')
+  }
+  return gcodeModulePromise
+}
+
+function closeGcodePreview() {
+  gcodeModalOpen.value = false
+  gcodeLoading.value = false
+  gcodeError.value = ''
+  gcodeFileName.value = ''
+  if (gcodePreviewInstance?.clear) {
+    gcodePreviewInstance.clear()
+  }
+  gcodePreviewInstance = null
+}
+
+async function openGcodePreview(printer) {
+  if (!process.client || gcodeLoading.value) return
+  if (!printer?.job?.file?.refs?.download) return
+
+  gcodeError.value = ''
+  gcodeLoading.value = true
+  gcodeFileName.value = printer.job.file.display_name || 'GCode-fil'
+  const fileNameLower = gcodeFileName.value.toLowerCase()
+  gcodeModalOpen.value = true
+
+  await nextTick()
+  await new Promise(resolve => requestAnimationFrame(resolve))
+
+  try {
+    if (fileNameLower.endsWith('.bgcode')) {
+      throw new Error('Forhandsvisning fungerer kun med tekstbasert .gcode. Denne filen er binar (.bgcode). Slå av "Binary G-code" i sliceren og slice pa nytt.')
+    }
+
+    const canvas = gcodeCanvas.value
+    const wrapper = gcodeCanvasWrapper.value
+    if (!canvas || !wrapper) {
+      throw new Error('Kunne ikke starte forhåndsvisning')
+    }
+
+    const rect = wrapper.getBoundingClientRect()
+    const ratio = window.devicePixelRatio || 1
+    canvas.width = Math.max(1, Math.floor(rect.width * ratio))
+    canvas.height = Math.max(1, Math.floor(rect.height * ratio))
+
+    const module = await loadGcodeModule()
+    const initPreview = module.init || module.default?.init
+    if (!initPreview) {
+      throw new Error('GCode-preview kunne ikke lastes')
+    }
+    if (gcodePreviewInstance?.clear) {
+      gcodePreviewInstance.clear()
+    }
+    gcodePreviewInstance = initPreview({
+      canvas,
+      extrusionColor: ['#f97316', '#22c55e', '#3b82f6', '#a855f7']
+    })
+    if (gcodePreviewInstance?.resize) {
+      gcodePreviewInstance.resize()
+    }
+
+    const response = await fetch(getDownloadUrl(printer))
+    if (!response.ok) {
+      throw new Error('Kunne ikke hente GCode-filen')
+    }
+    const gcode = await response.text()
+    if (!gcode.trim()) {
+      throw new Error('GCode-filen er tom')
+    }
+    if (gcode.includes('\u0000')) {
+      throw new Error('Forhandsvisning fungerer kun med tekstbasert .gcode. Denne filen ser binar ut. Slå av "Binary G-code" i sliceren og slice pa nytt.')
+    }
+    if (!gcodePreviewInstance?.processGCode) {
+      throw new Error('GCode-forhandsvisning er ikke tilgjengelig i denne nettleseren')
+    }
+    gcodePreviewInstance.processGCode(gcode)
+    if (gcodePreviewInstance?.resize) {
+      gcodePreviewInstance.resize()
+    }
+  } catch (err) {
+    gcodeError.value = err?.message || 'Kunne ikke laste GCode-forhandsvisning'
+  } finally {
+    gcodeLoading.value = false
+  }
+}
+
 
 async function fetchInfo() {
   error.value = null
@@ -1312,7 +1622,32 @@ async function fetchInfo() {
     
     // API returnerer alltid en array
     if (Array.isArray(data)) {
-      printerList.value = data
+      const nowTs = Date.now()
+      const merged = data.map((printer) => {
+        const cacheKey = printer.ip || printer.serial || printer.hostname
+        if (!cacheKey) return printer
+
+        const state = (printer.state || '').toUpperCase()
+        const isPrinting = state === 'PRINTING' || state === 'PAUSED'
+
+        if (printer.job) {
+          jobCache.set(cacheKey, { job: printer.job, updatedAt: nowTs })
+          return printer
+        }
+
+        const cached = jobCache.get(cacheKey)
+        if (isPrinting && cached && nowTs - cached.updatedAt < JOB_CACHE_TTL_MS) {
+          return { ...printer, job: cached.job }
+        }
+
+        if (!isPrinting) {
+          jobCache.delete(cacheKey)
+        }
+
+        return printer
+      })
+
+      printerList.value = merged
       error.value = null
     } else {
       console.error('Uventet respons fra /api/prusa:', data)
@@ -1375,6 +1710,7 @@ onMounted(() => {
 onUnmounted(() => {
   if (intervalId) clearInterval(intervalId)
   if (cabinetInterval) clearInterval(cabinetInterval)
+  closeGcodePreview()
   // Ikke tøm printerList her, så den bevares mellom navigasjon
 })
 
