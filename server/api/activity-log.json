@@ -1,5 +1,29 @@
 [
   {
+    "id": "177626065196978o28ykh0",
+    "timestamp": "2026-04-15T13:44:11.969Z",
+    "type": "loddestasjon_idle",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": false,
+      "thermalMax": 24.9782047271729,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-15T13:44:11.387790+00:00"
+    }
+  },
+  {
+    "id": "17762606513175n5xxq8ef",
+    "timestamp": "2026-04-15T13:44:11.317Z",
+    "type": "loddestasjon_in_use",
+    "device": "Loddestasjon",
+    "metadata": {
+      "inUse": true,
+      "thermalMax": 70.0163497924805,
+      "threshold": 35,
+      "sensorUpdated": "2026-04-15T13:44:10.636308+00:00"
+    }
+  },
+  {
     "id": "1776260037895zdi3ru6kr",
     "timestamp": "2026-04-15T13:33:57.895Z",
     "type": "printer_end",

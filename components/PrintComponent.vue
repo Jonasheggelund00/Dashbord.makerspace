@@ -1,8 +1,23 @@
 <template>
   <div :class="['p-6', isDark ? 'print-dark' : 'print-light']">
     <div class="header">
-      <h1 :class="isDark ? 'text-white' : 'text-gray-900'">Prusa Print Status</h1>
-      <div class="flex flex-col items-end gap-2">
+      <div class="flex items-center gap-2">
+        <h1 :class="isDark ? 'text-white' : 'text-gray-900'">Prusa Print Status</h1>
+        <button
+          type="button"
+          @click="showInfo = !showInfo"
+          :aria-expanded="showInfo"
+          aria-label="Sensorinfo"
+          title="Sensorinfo"
+          :class="[
+            'flex items-center justify-center w-7 h-7 rounded-full border text-xs font-bold transition-colors',
+            isDark ? 'border-gray-700 text-gray-300 hover:bg-gray-800' : 'border-gray-300 text-gray-600 hover:bg-gray-100'
+          ]"
+        >
+          !
+        </button>
+      </div>
+      <div class="header-actions flex flex-col items-end gap-2">
         <button @click="fetchInfo" class="refresh-btn">
           Oppdater info
         </button>
@@ -10,6 +25,25 @@
           Sist oppdatert: {{ lastUpdated }}
         </div>
       </div>
+    </div>
+
+    <div
+      v-if="showInfo"
+      :class="[
+        'mb-6 rounded-lg border p-4 text-sm',
+        isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
+      ]"
+    >
+      <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+      <ul class="mt-2 list-disc pl-5 space-y-1">
+        <li>Printere rapporterer temperaturer (bed/dyse) og status</li>
+        <li>Filamentskap: temperatur og luftfuktighet (2 sensorer)</li>
+      </ul>
+      <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Datahenting</p>
+      <ul class="mt-2 list-disc pl-5 space-y-1">
+        <li>/api/prusa (polling-intervall fra /api/settings, standard 3 sekunder)</li>
+        <li>/api/filament-cabinet (oppdateres hvert 10. sekund)</li>
+      </ul>
     </div>
 
     <!-- Filamentskap-stripe -->
@@ -625,6 +659,24 @@ h1 {
 
 .refresh-btn:active {
   transform: scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .refresh-btn {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.9rem;
+  }
 }
 
 /* --- Printer grid --- */
@@ -1452,6 +1504,7 @@ const isDark = useState('darkMode', () => {
 const printerList = sharedPrinterList
 const error = ref(null)
 const lastUpdated = ref('')
+const showInfo = ref(false)
 let intervalId = null
 const searchQuery = ref('')
 const selectedModel = ref('all')

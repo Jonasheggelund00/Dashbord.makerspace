@@ -7,9 +7,24 @@
       <div class="mb-8">
         <div class="flex items-start justify-between">
           <div>
-            <h1 :class="isDark ? 'text-3xl font-bold text-white mb-2' : 'text-3xl font-bold text-gray-900 mb-2'">
-              Weller Loddestasjon
-            </h1>
+            <div class="flex items-center gap-2 mb-2">
+              <h1 :class="isDark ? 'text-3xl font-bold text-white' : 'text-3xl font-bold text-gray-900'">
+                Weller Loddestasjon
+              </h1>
+              <button
+                type="button"
+                @click="showInfo = !showInfo"
+                :aria-expanded="showInfo"
+                aria-label="Sensorinfo"
+                title="Sensorinfo"
+                :class="[
+                  'flex items-center justify-center w-7 h-7 rounded-full border text-xs font-bold transition-colors',
+                  isDark ? 'border-gray-700 text-gray-300 hover:bg-gray-800' : 'border-gray-300 text-gray-600 hover:bg-gray-100'
+                ]"
+              >
+                !
+              </button>
+            </div>
             <p :class="isDark ? 'text-gray-400' : 'text-gray-600'">
               Sanntidsovervåking av utstyr
             </p>
@@ -33,6 +48,24 @@
             </span>
           </div>
         </div>
+      </div>
+
+      <div
+        v-if="showInfo"
+        :class="[
+          'mb-6 rounded-lg border p-4 text-sm',
+          isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
+        ]"
+      >
+        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1">
+          <li>Termisk kamera (32x24) MLX90640 sensor for min/snitt/maks og varmekart</li>
+        </ul>
+        <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Datahenting</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1">
+          <li>/api/loddestasjon-sensor</li>
+          <li>Oppdateres hvert 1. sekund</li>
+        </ul>
       </div>
 
       <!-- Feilmelding -->
@@ -201,6 +234,7 @@ const error = ref('')
 const lastUpdate = ref('')
 const thermalLastUpdate = ref('')
 const thermalStale = ref(false)
+const showInfo = ref(false)
 
 const isActive = loddestasjonInUse
 
