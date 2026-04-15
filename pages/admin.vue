@@ -1438,16 +1438,19 @@ function confirmDelete(printer: any) {
 
 async function deletePrinter() {
   if (!printerToDelete.value) return;
+  const targetIp = printerToDelete.value.ip;
   try {
     const res = await fetch('/api/prusa-delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ip: printerToDelete.value.ip })
     });
-    if (!res.ok) throw new Error('Kunne ikke slette printer');
-    await fetchPrinters();
+    const result = await res.json().catch(() => ({}));
+    if (!res.ok || result?.error) throw new Error(result?.error || 'Kunne ikke slette printer');
+    printers.value = printers.value.filter(p => p.ip !== targetIp);
     showConfirm.value = false;
     printerToDelete.value = null;
+    fetchPrinters();
   } catch (e: any) {
     alert(e.message || 'Feil ved sletting');
   }

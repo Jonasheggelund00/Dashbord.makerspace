@@ -1,6 +1,7 @@
 <!-- components/Header.vue -->
 <template>
-  <header class="relative text-white w-full bg-gray-800 backdrop-blur shadow-md">
+  <div class="w-full">
+  <header class="fixed top-0 left-0 right-0 z-50 text-white w-full bg-gray-800 backdrop-blur shadow-md">
     <!-- Top bar -->
     <div class="container mx-auto flex items-center justify-between px-5 py-4 relative z-10">
       <!-- Logo -->
@@ -207,6 +208,8 @@
       </div>
     </transition>
   </header>
+  <div class="h-20"></div>
+  </div>
 </template>
 
 <script setup>

@@ -1,5 +1,89 @@
 [
   {
+    "id": "1776259678299ilcwki7",
+    "timestamp": "2026-04-15T13:27:58.299Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776258547281x91ng82",
+    "timestamp": "2026-04-15T13:09:07.281Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776258306492labt6a8",
+    "timestamp": "2026-04-15T13:05:06.492Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776249639972zyei6ia",
+    "timestamp": "2026-04-15T10:40:39.972Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776249634006uph35tc",
+    "timestamp": "2026-04-15T10:40:34.006Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "1776249630160pnu3inf",
+    "timestamp": "2026-04-15T10:40:30.160Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "17762495510585d30oyj",
+    "timestamp": "2026-04-15T10:39:11.058Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "17762495442121fczqce",
+    "timestamp": "2026-04-15T10:39:04.212Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776249532854e8093o0",
+    "timestamp": "2026-04-15T10:38:52.854Z",
+    "username": "brukertest",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "177624922368418yxxpa",
+    "timestamp": "2026-04-15T10:33:43.684Z",
+    "username": "brukertest",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
+    "id": "1776249205865d2mdsw5",
+    "timestamp": "2026-04-15T10:33:25.865Z",
+    "username": "Jonas00",
+    "action": "logout",
+    "ip": "::1"
+  },
+  {
+    "id": "17762479694512o1x1w6",
+    "timestamp": "2026-04-15T10:12:49.451Z",
+    "username": "Jonas00",
+    "action": "login",
+    "ip": "::1"
+  },
+  {
     "id": "1775559351059sev3s99",
     "timestamp": "2026-04-07T10:55:51.059Z",
     "username": "Jonas00",

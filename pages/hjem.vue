@@ -81,7 +81,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
 
           <!-- 3D-Printere -->
-          <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
+            <div v-if="hasPrinterAlerts" class="absolute top-3 right-3 text-yellow-500" :title="printerAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
             <div class="flex items-center gap-2 mb-3">
               <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18 3H6C4.9 3 4 3.9 4 5v4c-1.1 0-2 .9-2 2v6h4v4h12v-4h4v-6c0-1.1-.9-2-2-2V5c0-1.1-.9-2-2-2zm-2 14H8v-4h8v4zm2-6v-2H6v2H4V9h16v2h-2z"/>
@@ -107,7 +113,13 @@
           </div>
 
           <!-- Loddestasjon -->
-          <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
+            <div v-if="hasLoddestasjonAlert" class="absolute top-3 right-3 text-yellow-500" :title="loddestasjonAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
             <div class="flex items-center gap-2 mb-3">
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -136,7 +148,13 @@
           </div>
 
           <!-- Laserkutter -->
-          <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
+            <div v-if="hasLaserkutterAlert" class="absolute top-3 right-3 text-yellow-500" :title="laserkutterAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
             <div class="flex items-center gap-2 mb-3">
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -161,7 +179,13 @@
           </div>
 
           <!-- HP DesignJet T630 -->
-          <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+          <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
+            <div v-if="hasHpDesignjetAlert" class="absolute top-3 right-3 text-yellow-500" :title="hpDesignjetAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
             <div class="flex items-center gap-2 mb-3">
               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -255,7 +279,7 @@
             </div>
             <div class="flex items-center gap-2">
               <span
-                :class="lightOn ? 'bg-yellow-400' : 'bg-gray-300'"
+                :class="lightOn ? 'bg-green-400' : 'bg-gray-300'"
                 class="w-2.5 h-2.5 rounded-full flex-shrink-0"
               ></span>
               <p class="text-2xl font-bold text-gray-900">{{ lightOn ? 'På' : 'Av' }}</p>
@@ -299,56 +323,56 @@
       <!-- Snarvei -->
       <section>
         <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Gå til</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
 
           <NuxtLink
             to="/3dprintere"
-            class="group flex items-center justify-between bg-orange-500 hover:bg-orange-600 text-white rounded-2xl p-5 transition-colors duration-200"
+            class="group flex items-center justify-between gap-3 rounded-2xl p-5 min-h-[96px] text-white shadow-sm transition-colors duration-200 bg-orange-500 hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-300 focus-visible:ring-offset-2"
           >
-            <div>
-              <p class="font-bold text-lg">3D-Printere</p>
-              <p class="text-orange-200 text-sm">Administrer og overvåk</p>
+            <div class="min-w-0">
+              <p class="text-base sm:text-lg font-semibold leading-none whitespace-nowrap truncate">3D-Printere</p>
+              <p class="mt-1 text-sm text-white/80 leading-none whitespace-nowrap truncate">Administrer og overvåk</p>
             </div>
-            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
 
           <NuxtLink
             to="/loddestasjon"
-            class="group flex items-center justify-between bg-blue-500 hover:bg-blue-600 text-white rounded-2xl p-5 transition-colors duration-200"
+            class="group flex items-center justify-between gap-3 rounded-2xl p-5 min-h-[96px] text-white shadow-sm transition-colors duration-200 bg-blue-500 hover:bg-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-2"
           >
-            <div>
-              <p class="font-bold text-lg">Loddestasjon</p>
-              <p class="text-blue-200 text-sm">Sjekk tilgjengelighet</p>
+            <div class="min-w-0">
+              <p class="text-base sm:text-lg font-semibold leading-none whitespace-nowrap truncate">Loddestasjon</p>
+              <p class="mt-1 text-sm text-white/80 leading-none whitespace-nowrap truncate">Sjekk tilgjengelighet</p>
             </div>
-            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
 
           <NuxtLink
             to="/laserkutter"
-            class="group flex items-center justify-between bg-purple-500 hover:bg-purple-600 text-white rounded-2xl p-5 transition-colors duration-200"
+            class="group flex items-center justify-between gap-3 rounded-2xl p-5 min-h-[96px] text-white shadow-sm transition-colors duration-200 bg-purple-500 hover:bg-purple-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2"
           >
-            <div>
-              <p class="font-bold text-lg">Laserkutter</p>
-              <p class="text-purple-200 text-sm">Se status og effekt</p>
+            <div class="min-w-0">
+              <p class="text-base sm:text-lg font-semibold leading-none whitespace-nowrap truncate">Laserkutter</p>
+              <p class="mt-1 text-sm text-white/80 leading-none whitespace-nowrap truncate">Se status og effekt</p>
             </div>
-            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
 
           <NuxtLink
             to="/storformatprinter"
-            class="group flex items-center justify-between bg-sky-500 hover:bg-sky-600 text-white rounded-2xl p-5 transition-colors duration-200"
+            class="group flex items-center justify-between gap-3 rounded-2xl p-5 min-h-[96px] text-white shadow-sm transition-colors duration-200 bg-sky-500 hover:bg-sky-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2"
           >
             <div class="min-w-0">
-              <p class="font-bold text-lg break-words">Storformatskriver</p>
-              <p class="text-sky-200 text-sm">Blekk, status og jobbkø</p>
+              <p class="text-base sm:text-lg font-semibold leading-none whitespace-nowrap truncate">Storformatskriver</p>
+              <p class="mt-1 text-sm text-white/80 leading-none whitespace-nowrap truncate">Blekk, status og jobbkø</p>
             </div>
-            <svg class="w-6 h-6 flex-shrink-0 opacity-60 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0 text-white/70 group-hover:text-white group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </NuxtLink>
@@ -368,6 +392,7 @@ import { useState } from '#app';
 import Header from '../components/Header.vue';
 import WallDisplayLaunch from '../components/WallDisplayLaunch.vue';
 import { sharedPrinterList } from '../components/printerState.js';
+import { loddestasjonInUse as sharedLoddestasjonInUse, updateLoddestasjonUsage } from '../components/loddestasjonState.js';
 
 const isDark = useState('darkMode', () => {
   if (process.client) {
@@ -379,17 +404,23 @@ const isDark = useState('darkMode', () => {
 
 const printers = sharedPrinterList;
 const loadingPrinters = ref(true);
+const printersError = ref(null);
 const loadingLoddestasjon = ref(true);
+const loddestasjonError = ref(null);
 const loadingLaserkutter = ref(true);
+const laserkutterError = ref(null);
 const loadingSensor = ref(true);
 const sensorError = ref(null);
 const lastSensorUpdate = ref('');
 
-const loddestasjonInUse = ref(false);
+const loddestasjonInUse = sharedLoddestasjonInUse;
 const loddestasjonTemp = ref(null);
 const laserkutterInUse = ref(false);
 const loadingHpDesignjet = ref(true);
+const hpDesignjetError = ref(null);
 const hpDesignjet = ref({ online: false, isPrinting: false, status: null, ink: [] });
+const user = useState('user', () => '');
+const isAdmin = computed(() => user.value !== '');
 
 const sensorData = ref({
   temperature: '--',
@@ -408,6 +439,73 @@ const printersIdle = computed(() =>
 const printersPrinting = computed(() =>
   printers.value.filter(p => p.state === 'PRINTING').length
 );
+
+const hasPrinterAlerts = computed(() => {
+  if (!isAdmin.value || loadingPrinters.value) return false;
+  if (printersError.value) return true;
+  const errorStates = ['ERROR', 'ATTENTION', 'STOPPED'];
+  return printers.value.some(p => {
+    const state = (p.state || '').toUpperCase();
+    return p?.error || errorStates.includes(state);
+  });
+});
+
+const hasLoddestasjonAlert = computed(() =>
+  isAdmin.value && !loadingLoddestasjon.value && !!loddestasjonError.value
+);
+
+const hasLaserkutterAlert = computed(() =>
+  isAdmin.value && !loadingLaserkutter.value && !!laserkutterError.value
+);
+
+const hasLowInk = computed(() => {
+  if (!hpDesignjet.value?.ink || hpDesignjet.value.ink.length === 0) return false;
+  return hpDesignjet.value.ink.some(ink => typeof ink.level === 'number' && ink.level < 20);
+});
+
+const hasHpDesignjetAlert = computed(() => {
+  if (!isAdmin.value || loadingHpDesignjet.value) return false;
+  if (hpDesignjetError.value) return true;
+  if (!hpDesignjet.value.online) return true;
+  const category = (hpDesignjet.value.status?.category || '').toLowerCase();
+  return category === 'error' || category === 'warning' || hasLowInk.value;
+});
+
+const printerAlertMessage = computed(() => {
+  if (!hasPrinterAlerts.value) return '';
+  if (printersError.value) return printersError.value;
+  const errorStates = ['ERROR', 'ATTENTION', 'STOPPED'];
+  const offenders = printers.value
+    .filter(p => p?.error || errorStates.includes((p.state || '').toUpperCase()))
+    .map(p => p.displayName || p.hostname || p.ip)
+    .filter(Boolean);
+  return offenders.length > 0
+    ? `Feil på: ${offenders.join(', ')}`
+    : 'Feil på en eller flere printere';
+});
+
+const loddestasjonAlertMessage = computed(() => {
+  if (!hasLoddestasjonAlert.value) return '';
+  return loddestasjonError.value || 'Feil ved loddestasjon';
+});
+
+const laserkutterAlertMessage = computed(() => {
+  if (!hasLaserkutterAlert.value) return '';
+  return laserkutterError.value || 'Feil ved laserkutter';
+});
+
+const hpDesignjetAlertMessage = computed(() => {
+  if (!hasHpDesignjetAlert.value) return '';
+  const messages = [];
+  if (hpDesignjetError.value) messages.push(hpDesignjetError.value);
+  if (!hpDesignjet.value.online) messages.push('Printer frakoblet');
+  const category = (hpDesignjet.value.status?.category || '').toLowerCase();
+  if (category === 'error' || category === 'warning') {
+    messages.push(hpDesignjet.value.status?.message || 'Feilstatus');
+  }
+  if (hasLowInk.value) messages.push('Lite blekk (under 20%)');
+  return messages.join(' · ');
+});
 
 const lightOn = computed(() => {
   const lux = parseFloat(sensorData.value.illuminance);
@@ -430,9 +528,13 @@ async function fetchPrinters() {
     if (res.ok) {
       const data = await res.json();
       printers.value = Array.isArray(data) ? data : [data];
+      printersError.value = null;
+    } else {
+      printersError.value = 'Kunne ikke hente printerstatus';
     }
   } catch (e) {
     console.error('Feil ved henting av printere:', e);
+    printersError.value = 'Feil ved henting av printere';
   } finally {
     loadingPrinters.value = false;
   }
@@ -444,11 +546,15 @@ async function fetchLoddestasjon() {
     if (res.ok) {
       const data = await res.json();
       const maxTemp = parseFloat(data.thermalMax);
-      loddestasjonInUse.value = !isNaN(maxTemp) && maxTemp > 35;
+      updateLoddestasjonUsage(!isNaN(maxTemp) ? maxTemp : null);
       loddestasjonTemp.value = !isNaN(maxTemp) ? maxTemp : null;
+      loddestasjonError.value = null;
+    } else {
+      loddestasjonError.value = 'Kunne ikke hente loddestasjon';
     }
   } catch (e) {
     console.error('Feil ved henting av loddestasjon:', e);
+    loddestasjonError.value = 'Feil ved henting av loddestasjon';
   } finally {
     loadingLoddestasjon.value = false;
   }
@@ -460,9 +566,13 @@ async function fetchLaserkutter() {
     if (res.ok) {
       const data = await res.json();
       laserkutterInUse.value = data.inUse === true;
+      laserkutterError.value = null;
+    } else {
+      laserkutterError.value = 'Kunne ikke hente laserkutter';
     }
   } catch (e) {
     console.error('Feil ved henting av laserkutter:', e);
+    laserkutterError.value = 'Feil ved henting av laserkutter';
   } finally {
     loadingLaserkutter.value = false;
   }
@@ -473,9 +583,13 @@ async function fetchHpDesignjet() {
     const res = await fetch('/api/hp-designjet');
     if (res.ok) {
       hpDesignjet.value = await res.json();
+      hpDesignjetError.value = null;
+    } else {
+      hpDesignjetError.value = 'Kunne ikke hente storformatskriver';
     }
   } catch (e) {
     console.error('Feil ved henting av HP DesignJet:', e);
+    hpDesignjetError.value = 'Feil ved henting av storformatskriver';
   } finally {
     loadingHpDesignjet.value = false;
   }

@@ -181,6 +181,11 @@
                 </div>
               </div>
 
+              <div v-if="printer.filament_type && printer.state === 'PRINTING'" class="filament-row">
+                <span class="filament-label">Filament</span>
+                <span class="filament-value">{{ printer.filament_type || 'Ukjent' }}</span>
+              </div>
+
               <!-- Print info (hvis printer) -->
               <div v-if="printer.job && printer.state === 'PRINTING'" class="print-info">
                 <!-- Filnavn -->
@@ -193,7 +198,9 @@
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
                     :href="getDownloadUrl(printer)"
-                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
+                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name"
+                    @click.stop
+                  >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
@@ -204,7 +211,7 @@
                     type="button"
                     class="download-btn preview-btn"
                     :title="'Forhandsvisning av ' + printer.job.file.display_name"
-                    @click="openGcodePreview(printer)"
+                    @click.stop="openGcodePreview(printer)"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
@@ -309,6 +316,11 @@
                 </div>
               </div>
 
+              <div v-if="printer.filament_type && printer.state === 'PRINTING'" class="filament-row">
+                <span class="filament-label">Filament</span>
+                <span class="filament-value">{{ printer.filament_type || 'Ukjent' }}</span>
+              </div>
+
               <!-- Print info (hvis printer) -->
               <div v-if="printer.job && printer.state === 'PRINTING'" class="print-info">
                 <!-- Filnavn -->
@@ -321,7 +333,9 @@
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
                     :href="getDownloadUrl(printer)"
-                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
+                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name"
+                    @click.stop
+                  >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
@@ -332,7 +346,7 @@
                     type="button"
                     class="download-btn preview-btn"
                     :title="'Forhandsvisning av ' + printer.job.file.display_name"
-                    @click="openGcodePreview(printer)"
+                    @click.stop="openGcodePreview(printer)"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
@@ -441,6 +455,11 @@
                 </div>
               </div>
 
+              <div v-if="printer.filament_type && printer.state === 'PRINTING'" class="filament-row">
+                <span class="filament-label">Filament</span>
+                <span class="filament-value">{{ printer.filament_type || 'Ukjent' }}</span>
+              </div>
+
               <!-- Print info (hvis printer) -->
               <div v-if="printer.job && printer.state === 'PRINTING'" class="print-info">
                 <!-- Filnavn -->
@@ -453,7 +472,9 @@
                     }}</span>
                   <a v-if="printer.job.file.refs && printer.job.file.refs.download"
                     :href="getDownloadUrl(printer)"
-                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name">
+                    class="download-btn" :title="'Last ned ' + printer.job.file.display_name"
+                    @click.stop
+                  >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd"
                         d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" />
@@ -464,7 +485,7 @@
                     type="button"
                     class="download-btn preview-btn"
                     :title="'Forhandsvisning av ' + printer.job.file.display_name"
-                    @click="openGcodePreview(printer)"
+                    @click.stop="openGcodePreview(printer)"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z" />
@@ -633,9 +654,6 @@ h1 {
   border-color: #374151;
 }
 
-.printer-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
 
 /* --- Printer kort header --- */
 .printer-card-header {
@@ -719,6 +737,42 @@ h1 {
 
 .print-dark .printer-details {
   color: #d1d5db;
+}
+
+.filament-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background: #fafafa;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.print-dark .filament-row {
+  background: #111827;
+  border-color: #374151;
+  color: #d1d5db;
+}
+
+.filament-label {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+
+.print-dark .filament-label {
+  color: #9ca3af;
+}
+
+.filament-value {
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
 /* --- Status badge --- */
@@ -1305,10 +1359,6 @@ h1 {
   background: #1f2937;
 }
 
-.xl-printer-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
-}
 
 .xl-image-section {
   flex-shrink: 0;
@@ -1515,6 +1565,7 @@ function getDownloadUrl(printer) {
   const filename = printer.job.file.display_name || 'print.gcode'
   return `/api/download-file?ip=${printer.ip}&path=${encodeURIComponent(printer.job.file.refs.download)}&filename=${encodeURIComponent(filename)}`
 }
+
 
 async function loadGcodeModule() {
   if (!gcodeModulePromise) {

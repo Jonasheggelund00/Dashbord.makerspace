@@ -29,7 +29,7 @@
               }"
             ></div>
             <span :class="isDark ? 'text-sm font-medium text-gray-200' : 'text-sm font-medium text-gray-700'">
-              {{ isActive ? 'I bruk' : 'Standby' }}
+              {{ isActive ? 'I bruk' : 'Ledig' }}
             </span>
           </div>
         </div>
@@ -177,11 +177,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useState } from '#app'
 import Header from '@/components/Header.vue'
 import { Camera } from 'lucide-vue-next';
-import { sharedLoddestasjonData, isDataLoaded } from '@/components/loddestasjonState.js'
+import { sharedLoddestasjonData, isDataLoaded, loddestasjonInUse, updateLoddestasjonUsage } from '@/components/loddestasjonState.js'
 
 // Dark mode state
 const isDark = useState('darkMode', () => {
@@ -202,10 +202,7 @@ const lastUpdate = ref('')
 const thermalLastUpdate = ref('')
 const thermalStale = ref(false)
 
-// Beregn om loddestasjonen er aktiv basert på termisk kamera (>75°C = i bruk)
-const isActive = computed(() => {
-  return (sensorData.value?.thermalMax || 0) > 35
-})
+const isActive = loddestasjonInUse
 
 function tempToColorRGB(t: number, minT: number, maxT: number): [number, number, number] {
   let p = (t - minT) / (maxT - minT)
@@ -262,7 +259,7 @@ onMounted(() => {
     fetchSensorData()
   }
   // Oppdater hvert 100 ms for høyere FPS (match Home Assistant update_interval)
-  intervalId = setInterval(fetchSensorData, 100)
+  intervalId = setInterval(fetchSensorData, 1000)
 })
 
 onUnmounted(() => {
@@ -291,6 +288,8 @@ async function fetchSensorData() {
       thermalMax: data.thermalMax || 0,
       thermalAvg: data.thermalAvg || 0
     }
+
+    updateLoddestasjonUsage(sensorData.value.thermalMax)
 
     // Tegn thermal heat map hvis vi har pixels (4 deler, comma-separated)
     if (data.thermalPixels1 && data.thermalPixels1 !== 'unknown' && canvasThermal.value) {

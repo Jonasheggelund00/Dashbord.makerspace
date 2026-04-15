@@ -62,6 +62,27 @@ async function fetchWithTimeout(resource, options = {}, timeout = 1000) {
   }
 }
 
+function detectFilamentFromStrings(values) {
+  const candidates = (values || []).filter(Boolean).map(value => String(value));
+  if (candidates.length === 0) return null;
+
+  const materials = ['PLA', 'PETG', 'ABS', 'ASA', 'PC', 'NYLON', 'TPU', 'PP', 'HIPS', 'PVA', 'BVOH', 'WOOD', 'CARBON'];
+
+  for (const raw of candidates) {
+    const tokens = raw
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, ' ')
+      .split(' ')
+      .filter(Boolean);
+
+    for (const material of materials) {
+      if (tokens.includes(material)) return material;
+    }
+  }
+
+  return null;
+}
+
 // Hjelpefunksjon for å sjekke og logge printer-tilstandsendringer
 async function checkAndLogPrinterState(ip, currentState, hostname, displayName, jobInfo) {
   try {
@@ -180,7 +201,7 @@ export default defineEventHandler(async (event) => {
     const [infoRes, statusRes, jobRes] = await Promise.allSettled([
       fetchWithTimeout(`http://${ip}/api/v1/info`, {
         headers: { 'X-Api-Key': apiKey }
-      }, 1000),
+      }, 4000),
       fetchWithTimeout(`http://${ip}/api/v1/status`, {
         headers: { 'X-Api-Key': apiKey }
       }, 1000),
@@ -218,11 +239,24 @@ export default defineEventHandler(async (event) => {
         // Hvis job har .job, bruk den, ellers bruk hele job-objektet
         jobInfo = job?.job ? job.job : job;
         // Filament-type
-        if (jobInfo?.filament_type) {
+        const filenameCandidates = [
+          jobInfo?.filename,
+          jobInfo?.file?.display_name,
+          jobInfo?.file?.name,
+          jobInfo?.file?.path,
+          jobInfo?.file?.refs?.download
+        ].filter(Boolean);
+
+        const filamentFromFilename = detectFilamentFromStrings(filenameCandidates);
+
+        if (filamentFromFilename) {
+          filament_type = filamentFromFilename;
+        } else if (jobInfo?.filament_type) {
           filament_type = jobInfo.filament_type;
-        } else if (jobInfo?.filename) {
-          const match = jobInfo.filename.match(/(PLA|PETG|ABS|ASA|PC|Nylon|TPU|PP|HIPS|PVA|BVOH|Wood|Carbon)/i);
-          if (match) filament_type = match[0].toUpperCase();
+        } else if (jobInfo?.filament?.type) {
+          filament_type = jobInfo.filament.type;
+        } else if (jobInfo?.filament?.material) {
+          filament_type = jobInfo.filament.material;
         }
       } catch (e) {
         // ignorer feil her

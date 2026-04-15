@@ -195,18 +195,30 @@ function parseStatus(xml) {
 
 function translateStatus(category) {
   const s = (category || '').toLowerCase();
-  if (s === 'ready' || s === 'idle') return 'Klar';
-  if (s === 'processing' || s === 'printing' || s.includes('printing')) return 'Skriver ut';
-  if (s === 'inpowersave' || s === 'sleep' || s === 'powersave') return 'Energisparing';
-  if (s === 'trayempty' || s.includes('trayempty')) return 'Papirkassett tom';
-  if (s === 'mediaout' || s.includes('mediaout')) return 'Papir tomt';
-  if (s === 'dooropen' || s.includes('dooropen')) return 'Deksel åpent';
-  if (s === 'medialow' || s.includes('medialow')) return 'Lite papir';
-  if (s === 'error' || s.includes('error')) return 'Feil';
-  if (s === 'warning' || s.includes('warning')) return 'Advarsel';
-  if (s === 'cancelled') return 'Kansellert';
-  if (s === 'offline') return 'Frakoblet';
-  return category || 'Ukjent';
+  const normalized = s.replace(/[^a-z]/g, '');
+
+  if (normalized === 'ready' || normalized === 'idle') return 'Klar';
+  if (normalized === 'unknown') return 'Ukjent';
+  if (normalized === 'processing' || normalized === 'printing' || normalized.includes('printing')) return 'Skriver ut';
+  if (normalized === 'inpowersave' || normalized === 'sleep' || normalized === 'powersave') return 'Energisparing';
+  if (normalized.includes('replacecartridge') || normalized.includes('replacecartarage')) return 'Bytt blekkpatron';
+  if (normalized.includes('cartridgeout') || normalized.includes('inkout') || normalized.includes('inkempty')) return 'Blekkpatron tom';
+  if (normalized.includes('cartridgelow') || normalized.includes('inklow') || normalized.includes('inkverylow')) return 'Lite blekk';
+  if (normalized.includes('trayempty')) return 'Papirkassett tom';
+  if (normalized.includes('mediaout')) return 'Papir tomt';
+  if (normalized.includes('dooropen')) return 'Deksel åpent';
+  if (normalized.includes('medialow')) return 'Lite papir';
+  if (normalized.includes('calibrating')) return 'Kalibrerer';
+  if (normalized.includes('warmingup') || normalized.includes('warming')) return 'Varmer opp';
+  if (normalized.includes('cleaning')) return 'Rengjør';
+  if (normalized.includes('maintenance')) return 'Vedlikehold';
+  if (normalized.includes('attention')) return 'Trenger oppmerksomhet';
+  if (normalized.includes('error')) return 'Feil';
+  if (normalized.includes('warning')) return 'Advarsel';
+  if (normalized.includes('cancelled')) return 'Kansellert';
+  if (normalized.includes('offline')) return 'Frakoblet';
+  if (normalized.includes('standby')) return 'Standby';
+  return 'Ukjent status';
 }
 
 // Parse jobbkø fra jobs/jobs.xml

@@ -28,7 +28,7 @@
               }"
             ></div>
             <span :class="isDark ? 'text-sm font-medium text-gray-200' : 'text-sm font-medium text-gray-700'">
-              {{ isActive ? 'I bruk' : 'Ikke i bruk' }}
+              {{ isActive ? 'I bruk' : 'Ledig' }}
             </span>
           </div>
         </div>
@@ -135,7 +135,7 @@ const isActive = computed(() => {
 
 onMounted(() => {
   if (!isLaserkutterDataLoaded.value) fetchSensorData()
-  intervalId = setInterval(fetchSensorData, 200)
+  intervalId = setInterval(fetchSensorData, 1000)
 })
 
 onUnmounted(() => {
