@@ -23,12 +23,12 @@ export const loddestasjonInUse = ref(false)
 
 const LODDESTASJON_THRESHOLD = 35
 const LODDESTASJON_ON_DELAY_MS = 3000
-const LODDESTASJON_OFF_DELAY_MS = 30000
+const LODDESTASJON_OFF_DELAY_MS = 180000
 
 let loddestasjonOnTimeout = null
 let loddestasjonOffTimeout = null
 
-export function updateLoddestasjonUsage(maxTemp) {
+export function updateLoddestasjonUsage(/** @type {number} */ maxTemp) {
 	const numeric = typeof maxTemp === 'number' ? maxTemp : NaN
 	const overThreshold = !isNaN(numeric) && numeric > LODDESTASJON_THRESHOLD
 

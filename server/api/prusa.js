@@ -49,7 +49,7 @@ async function savePrinterStates(states) {
 }
 
 // Hjelpefunksjon for fetch med timeout
-async function fetchWithTimeout(resource, options = {}, timeout = 1000) {
+async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -118,9 +118,36 @@ async function checkAndLogPrinterState(ip, currentState, hostname, displayName, 
           ip: ip
         };
 
-        // Legg til filnavn hvis tilgjengelig
-        if (jobInfo?.filename) {
-          metadata.filename = jobInfo.filename;
+        // Legg til filnavn hvis tilgjengelig - prøv flere kilder
+        const filename = jobInfo?.filename || 
+                        jobInfo?.file?.display_name || 
+                        jobInfo?.file?.name || 
+                        jobInfo?.file?.path;
+        if (filename) {
+          metadata.filename = filename;
+        }
+
+        // Legg til filament hvis tilgjengelig
+        if (jobInfo?.filament_type) {
+          metadata.filament = jobInfo.filament_type;
+        } else if (jobInfo?.filament?.type) {
+          metadata.filament = jobInfo.filament.type;
+        } else if (jobInfo?.filament?.material) {
+          metadata.filament = jobInfo.filament.material;
+        }
+
+        // Legg til print duration hvis tilgjengelig
+        if (jobInfo?.time_remaining) {
+          const seconds = parseInt(jobInfo.time_remaining);
+          if (!isNaN(seconds)) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            if (hours > 0) {
+              metadata.print_duration = `${hours}h ${minutes}m`;
+            } else if (minutes > 0) {
+              metadata.print_duration = `${minutes}m`;
+            }
+          }
         }
 
         // Bestem log-type basert på tilstand
@@ -201,13 +228,13 @@ export default defineEventHandler(async (event) => {
     const [infoRes, statusRes, jobRes] = await Promise.allSettled([
       fetchWithTimeout(`http://${ip}/api/v1/info`, {
         headers: { 'X-Api-Key': apiKey }
-      }, 4000),
+      }, 10000),
       fetchWithTimeout(`http://${ip}/api/v1/status`, {
         headers: { 'X-Api-Key': apiKey }
-      }, 1000),
+      }, 10000),
       fetchWithTimeout(`http://${ip}/api/v1/job`, {
         headers: { 'X-Api-Key': apiKey }
-      }, 1000)
+      }, 10000)
     ]);
     
     // Process info response
@@ -257,6 +284,11 @@ export default defineEventHandler(async (event) => {
           filament_type = jobInfo.filament.type;
         } else if (jobInfo?.filament?.material) {
           filament_type = jobInfo.filament.material;
+        }
+        
+        // Lagre filament_type på jobInfo slik at det er tilgjengelig ved logging
+        if (filament_type && !jobInfo.filament_type) {
+          jobInfo.filament_type = filament_type;
         }
       } catch (e) {
         // ignorer feil her

@@ -39,8 +39,8 @@
             <div
               class="w-2.5 h-2.5 rounded-full"
               :class="{
-                'bg-green-500 animate-pulse': isActive,
-                'bg-gray-400': !isActive
+                'bg-orange-400 animate-pulse': isActive,
+                'bg-green-500': !isActive
               }"
             ></div>
             <span :class="isDark ? 'text-sm font-medium text-gray-200' : 'text-sm font-medium text-gray-700'">
@@ -112,7 +112,7 @@
             <div class="flex items-center gap-3">
               <span
                 class="w-3 h-3 rounded-full flex-shrink-0"
-                :class="isActive ? 'bg-blue-500 animate-pulse' : 'bg-green-500'"
+                :class="isActive ? 'bg-orange-400 animate-pulse' : 'bg-green-500'"
               ></span>
               <span :class="isDark ? 'text-lg font-medium text-gray-200' : 'text-lg font-medium text-gray-800'">
                 {{ isActive ? 'I bruk' : 'Ledig' }}
@@ -149,8 +149,8 @@
               <div class="thermal-canvas-wrapper">
                 <canvas 
                   ref="canvasThermal" 
-                  width="32" 
-                  height="24"
+                  width="128" 
+                  height="96"
                   class="thermal-canvas"
                 ></canvas>
               </div>
@@ -242,12 +242,18 @@ function tempToColorRGB(t: number, minT: number, maxT: number): [number, number,
   let p = (t - minT) / (maxT - minT)
   p = Math.max(0, Math.min(1, p))
 
+  // Utvidet fargegradient for bedre granularitet
   const stops: [number, number, number][] = [
-    [0,   0,   0  ],
-    [80,  0,   180],
-    [255, 0,   50 ],
-    [255, 180, 0  ],
-    [255, 255, 0  ],
+    [0,   0,   0    ],  // Svart
+    [30,  0,   80   ],  // Mørk blå
+    [80,  0,   180  ],  // Blå
+    [150, 0,   150  ],  // Fiolett
+    [200, 100, 0    ],  // Rød-lilla
+    [255, 0,   50   ],  // Rød
+    [255, 150, 0    ],  // Oransje
+    [255, 200, 0    ],  // Gul-oransje
+    [255, 255, 0    ],  // Gul
+    [255, 255, 200  ],  // Lys gul
   ]
 
   const n = stops.length - 1
@@ -318,15 +324,15 @@ async function fetchSensorData() {
       tilt: data.tilt || false,
       drop: data.drop || false,
       battery: data.battery || 0,
-      thermalMin: data.thermalMin || 0,
-      thermalMax: data.thermalMax || 0,
-      thermalAvg: data.thermalAvg || 0
+      thermalMin: parseFloat(data.thermalMin) || 0,
+      thermalMax: parseFloat(data.thermalMax) || 0,
+      thermalAvg: parseFloat(data.thermalAvg) || 0
     }
 
     updateLoddestasjonUsage(sensorData.value.thermalMax)
 
     // Tegn thermal heat map hvis vi har pixels (4 deler, comma-separated)
-    if (data.thermalPixels1 && data.thermalPixels1 !== 'unknown' && canvasThermal.value) {
+    if (data.thermalPixels1 && data.thermalPixels1 !== 'unknown' && data.thermalPixels2 && data.thermalPixels3 && data.thermalPixels4 && canvasThermal.value) {
       try {
         const part1 = data.thermalPixels1.split(',').map(Number)
         const part2 = data.thermalPixels2.split(',').map(Number)
@@ -346,21 +352,54 @@ async function fetchSensorData() {
             const rows = 24
             const cw = canvasThermal.value.width
             const ch = canvasThermal.value.height
+            
+            // Bicubic Catmull-Rom interpolasjon for bedre oppløsning
+            function getCubicValue(p0: number, p1: number, p2: number, p3: number, t: number): number {
+              const a0 = -0.5 * p0 + 1.5 * p1 - 1.5 * p2 + 0.5 * p3
+              const a1 = p0 - 2.5 * p1 + 2 * p2 - 0.5 * p3
+              const a2 = -0.5 * p0 + 0.5 * p2
+              const a3 = p1
+              return a0 * t * t * t + a1 * t * t + a2 * t + a3
+            }
+
+            function getPixelBicubic(x: number, y: number): number {
+              const xi = Math.floor(x)
+              const yi = Math.floor(y)
+              const fx = x - xi
+              const fy = y - yi
+
+              const getPixel = (px: number, py: number): number => {
+                const px_clamped = Math.max(0, Math.min(cols - 1, px))
+                const py_clamped = Math.max(0, Math.min(rows - 1, py))
+                return pixels[py_clamped * cols + px_clamped] ?? 0
+              }
+
+              const values: number[][] = []
+              for (let dy = -1; dy <= 2; dy++) {
+                const row: number[] = []
+                for (let dx = -1; dx <= 2; dx++) {
+                  row.push(getPixel(xi + dx, yi + dy))
+                }
+                values.push(row)
+              }
+
+              const col0 = getCubicValue(values[0]![0]!, values[0]![1]!, values[0]![2]!, values[0]![3]!, fx)
+              const col1 = getCubicValue(values[1]![0]!, values[1]![1]!, values[1]![2]!, values[1]![3]!, fx)
+              const col2 = getCubicValue(values[2]![0]!, values[2]![1]!, values[2]![2]!, values[2]![3]!, fx)
+              const col3 = getCubicValue(values[3]![0]!, values[3]![1]!, values[3]![2]!, values[3]![3]!, fx)
+
+              return getCubicValue(col0, col1, col2, col3, fy)
+            }
+
             const imageData = ctx.createImageData(cw, ch)
             const d = imageData.data
 
+            // First pass: tegn med bicubic interpolasjon
             for (let cy = 0; cy < ch; cy++) {
               for (let cx = 0; cx < cw; cx++) {
                 const gx = (cx / (cw - 1)) * (cols - 1)
                 const gy = (cy / (ch - 1)) * (rows - 1)
-                const x0 = Math.floor(gx), x1 = Math.min(x0 + 1, cols - 1)
-                const y0 = Math.floor(gy), y1 = Math.min(y0 + 1, rows - 1)
-                const fx = gx - x0, fy = gy - y0
-                const temp =
-                  pixels[y0 * cols + x0] * (1 - fx) * (1 - fy) +
-                  pixels[y0 * cols + x1] * fx * (1 - fy) +
-                  pixels[y1 * cols + x0] * (1 - fx) * fy +
-                  pixels[y1 * cols + x1] * fx * fy
+                const temp = getPixelBicubic(gx, gy)
                 const col = tempToColorRGB(temp, minT, maxT)
                 const idx = (cy * cw + cx) * 4
                 d[idx]     = col[0]
@@ -369,6 +408,37 @@ async function fetchSensorData() {
                 d[idx + 3] = 255
               }
             }
+
+            // Second pass: skarphet/clarity-filter (unsharp mask)
+            const sharpness = 0.8 // 0.5-1.5 for varying sharpness
+            const tempData = new Uint8ClampedArray(d)
+            for (let cy = 1; cy < ch - 1; cy++) {
+              for (let cx = 1; cx < cw - 1; cx++) {
+                const center_idx = (cy * cw + cx) * 4
+                const centerR = tempData[center_idx] ?? 0
+                const centerG = tempData[center_idx + 1] ?? 0
+                const centerB = tempData[center_idx + 2] ?? 0
+
+                let sumR = 0, sumG = 0, sumB = 0
+                for (let dy = -1; dy <= 1; dy++) {
+                  for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue
+                    const neighbor_idx = ((cy + dy) * cw + (cx + dx)) * 4
+                    sumR += tempData[neighbor_idx] ?? 0
+                    sumG += tempData[neighbor_idx + 1] ?? 0
+                    sumB += tempData[neighbor_idx + 2] ?? 0
+                  }
+                }
+                const avgR = sumR / 8
+                const avgG = sumG / 8
+                const avgB = sumB / 8
+
+                d[center_idx] = Math.max(0, Math.min(255, centerR + (centerR - avgR) * sharpness))
+                d[center_idx + 1] = Math.max(0, Math.min(255, centerG + (centerG - avgG) * sharpness))
+                d[center_idx + 2] = Math.max(0, Math.min(255, centerB + (centerB - avgB) * sharpness))
+              }
+            }
+
             ctx.putImageData(imageData, 0, 0)
 
             // Oppdater timestamp for thermal data
@@ -383,6 +453,19 @@ async function fetchSensorData() {
       } catch (err) {
         console.error('Feil ved tegning av thermal map:', err)
       }
+    } else if (canvasThermal.value && (!data.thermalPixels1 || data.thermalPixels1 === 'unknown')) {
+      // Tegn "utilgjengelig" melding på canvas
+      const ctx = canvasThermal.value.getContext('2d')
+      if (ctx) {
+        ctx.fillStyle = '#1a1a1a'
+        ctx.fillRect(0, 0, canvasThermal.value.width, canvasThermal.value.height)
+        ctx.fillStyle = '#999999'
+        ctx.font = 'bold 10px Arial'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText('Kamera', canvasThermal.value.width / 2, canvasThermal.value.height / 2 - 5)
+        ctx.fillText('utilgjengelig', canvasThermal.value.width / 2, canvasThermal.value.height / 2 + 5)
+      }
     }
 
     // thermalStale flag from server indicates we're returning cached/stale data
@@ -391,6 +474,10 @@ async function fetchSensorData() {
     // Vis feilmelding hvis API returnerte error, men fortsett å vise data
     if (data.error) {
       console.warn('API warning:', data.error)
+      // Hvis det er stale thermal data, vis advarselen mer tydelig
+      if (data.thermalStale && !data.thermalPixels1) {
+        error.value = '⚠️ Termisk kamera er utilgjengelig. Viser tidligere målinger.'
+      }
     }
 
     // Oppdater timestamp
@@ -434,12 +521,13 @@ async function fetchSensorData() {
   width: 100%;
   height: 100%;
   display: block;
+  image-rendering: crisp-edges;
   image-rendering: pixelated;
-  filter: contrast(1.1) saturate(1.2);
+  filter: contrast(1.4) saturate(1.3) brightness(1.05);
   transition: filter 0.3s ease;
 }
 
 .thermal-canvas:hover {
-  filter: contrast(1.15) saturate(1.25);
+  filter: contrast(1.5) saturate(1.4) brightness(1.1);
 }
 </style>

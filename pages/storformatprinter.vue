@@ -30,8 +30,8 @@
           <div
             v-if="!loading && data.online"
             :class="[
-              'flex items-center gap-3 px-3 py-1 rounded-full border',
-              isDark ? 'bg-gray-800 border-gray-700 text-gray-200' : 'bg-white border-gray-200 text-gray-700'
+              'flex items-center gap-3 px-4 py-2 rounded-lg',
+              isDark ? 'bg-gray-800' : 'bg-white shadow-sm'
             ]"
           >
             <div

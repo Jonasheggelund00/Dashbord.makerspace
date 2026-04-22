@@ -2,18 +2,26 @@ import { logActivity } from '../utils/logger.js';
 
 const LODDESTASJON_DEVICE_NAME = 'Loddestasjon';
 const LODDESTASJON_IN_USE_THRESHOLD = 35;
+const LODDESTASJON_ON_DELAY_MS = 3000;   // 3 sekunder før logging når over threshold
+const LODDESTASJON_OFF_DELAY_MS = 180000; // 3 minutter før logging når under threshold
+
 let lastLoddestasjonInUse = null;
+let loddestasjonOnTimeout = null;
+let loddestasjonOffTimeout = null;
 
 async function maybeLogLoddestasjonUsage(inUse, thermalMax, sensorUpdated) {
   if (typeof inUse !== 'boolean') return;
 
+  // Hvis tilstanden fortsatt er den samme, ingen logging
+  if (lastLoddestasjonInUse === inUse) return;
+
+  // Hvis dette er første gang (lastLoddestasjonInUse === null), lagre bare og return
   if (lastLoddestasjonInUse === null) {
     lastLoddestasjonInUse = inUse;
     return;
   }
 
-  if (lastLoddestasjonInUse === inUse) return;
-
+  // Oppdater tracking og logg
   lastLoddestasjonInUse = inUse;
   const logType = inUse ? 'loddestasjon_in_use' : 'loddestasjon_idle';
 
@@ -34,6 +42,37 @@ async function maybeLogLoddestasjonUsage(inUse, thermalMax, sensorUpdated) {
     });
   } catch (e) {
     console.error('Feil ved logging av loddestasjon bruk:', e);
+  }
+}
+
+function updateLoddestasjonUsageWithDebounce(thermalMax, sensorUpdated) {
+  const numeric = typeof thermalMax === 'number' ? thermalMax : NaN;
+  const overThreshold = !isNaN(numeric) && numeric > LODDESTASJON_IN_USE_THRESHOLD;
+
+  if (overThreshold) {
+    // Over threshold - clear off timeout og start on timeout
+    if (loddestasjonOffTimeout) {
+      clearTimeout(loddestasjonOffTimeout);
+      loddestasjonOffTimeout = null;
+    }
+    if (!loddestasjonOnTimeout && lastLoddestasjonInUse !== true) {
+      loddestasjonOnTimeout = setTimeout(() => {
+        maybeLogLoddestasjonUsage(true, numeric, sensorUpdated);
+        loddestasjonOnTimeout = null;
+      }, LODDESTASJON_ON_DELAY_MS);
+    }
+  } else {
+    // Under threshold - clear on timeout og start off timeout
+    if (loddestasjonOnTimeout) {
+      clearTimeout(loddestasjonOnTimeout);
+      loddestasjonOnTimeout = null;
+    }
+    if (!loddestasjonOffTimeout && lastLoddestasjonInUse !== false) {
+      loddestasjonOffTimeout = setTimeout(() => {
+        maybeLogLoddestasjonUsage(false, numeric, sensorUpdated);
+        loddestasjonOffTimeout = null;
+      }, LODDESTASJON_OFF_DELAY_MS);
+    }
   }
 }
 
@@ -116,23 +155,37 @@ export default defineEventHandler(async (event) => {
       const esp32Headers = { 'Authorization': esp32Auth };
 
       // Helper: fetch with timeout and simple retry logic
-      async function fetchWithTimeoutRetry(url, options = {}, timeout = 5000, retries = 2, retryDelay = 200) {
+      async function fetchWithTimeoutRetry(url, options = {}, timeout = 15000, retries = 4, retryDelay = 100) {
+        let lastError = null;
         for (let attempt = 1; attempt <= retries + 1; attempt++) {
           try {
             const res = await fetch(url, { ...options, signal: AbortSignal.timeout(timeout) });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return await res.json();
           } catch (err) {
-            console.error(`ESP32 fetch failed (${url}) attempt ${attempt}:`, err.message);
-            if (attempt <= retries) await new Promise(r => setTimeout(r, retryDelay));
-            else throw err;
+            lastError = err;
+            const errorMsg = err instanceof Error ? err.message : String(err);
+            console.error(`ESP32 fetch failed (${url}) attempt ${attempt}/${retries + 1}:`, errorMsg);
+            
+            // Sjekk om det er DNS-problem eller tilkoblingsproblem
+            if (errorMsg.includes('fetch') || errorMsg.includes('network') || errorMsg.includes('ERR_NAME_NOT_RESOLVED')) {
+              console.error(`⚠️  Mulig problem: thermal-camera.local er utilgjengelig (DNS/Network issue)`);
+            }
+            
+            if (attempt <= retries) {
+              console.log(`Prøver igjen om ${retryDelay}ms...`);
+              await new Promise(r => setTimeout(r, retryDelay));
+            } else {
+              console.error(`Gitt opp etter ${retries + 1} forsøk for ${url}`);
+            }
           }
         }
+        throw lastError || new Error('Fetch failed after all retries');
       }
 
       // Hent pixel data sekvensielt med litt større delay mellom requests
       try {
-        const d1 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_1', { headers: esp32Headers }, 5000, 2, 200);
+        const d1 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_1', { headers: esp32Headers }, 15000, 4, 100);
         pixels1 = d1?.value || '';
       } catch (e) { pixels1 = ''; }
 
@@ -140,21 +193,21 @@ export default defineEventHandler(async (event) => {
           await new Promise(resolve => setTimeout(resolve, 20));
 
       try {
-        const d2 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_2', { headers: esp32Headers }, 5000, 2, 200);
+        const d2 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_2', { headers: esp32Headers }, 15000, 4, 100);
         pixels2 = d2?.value || '';
       } catch (e) { pixels2 = ''; }
 
           await new Promise(resolve => setTimeout(resolve, 20));
 
       try {
-        const d3 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_3', { headers: esp32Headers }, 5000, 2, 200);
+        const d3 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_3', { headers: esp32Headers }, 15000, 4, 100);
         pixels3 = d3?.value || '';
       } catch (e) { pixels3 = ''; }
 
           await new Promise(resolve => setTimeout(resolve, 20));
 
       try {
-        const d4 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_4', { headers: esp32Headers }, 5000, 2, 200);
+        const d4 = await fetchWithTimeoutRetry('http://thermal-camera.local/text_sensor/thermal_pixels_4', { headers: esp32Headers }, 15000, 4, 100);
         pixels4 = d4?.value || '';
       } catch (e) { pixels4 = ''; }
 
@@ -202,10 +255,9 @@ export default defineEventHandler(async (event) => {
     const thermalMaxRaw = sensorDataMap.thermalMax?.state;
     const thermalMaxValue = typeof thermalMaxRaw !== 'undefined' ? parseFloat(thermalMaxRaw) : null;
     const thermalMaxNumber = Number.isFinite(thermalMaxValue) ? thermalMaxValue : null;
-    const inUse = thermalMaxNumber !== null ? thermalMaxNumber > LODDESTASJON_IN_USE_THRESHOLD : null;
 
-    if (inUse !== null) {
-      await maybeLogLoddestasjonUsage(inUse, thermalMaxNumber, sensorDataMap.thermalMax?.last_updated);
+    if (thermalMaxNumber !== null) {
+      updateLoddestasjonUsageWithDebounce(thermalMaxNumber, sensorDataMap.thermalMax?.last_updated);
     }
 
     const errorMessages = [];

@@ -1,6 +1,6 @@
 export default defineEventHandler(async () => {
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 4000)
+  const timeout = setTimeout(() => controller.abort(), 10000)
 
   try {
     const res = await fetch('http://192.168.1.248/sensor_data.json', {

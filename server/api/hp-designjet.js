@@ -1,7 +1,7 @@
 import { logActivity } from '../utils/logger.js';
 
 const HP_IP = '192.168.1.11';
-const TIMEOUT_MS = 4000;
+const TIMEOUT_MS = 10000;
 const DESIGNJET_DEVICE_NAME = 'HP DesignJet T630';
 let lastDesignjetInUse = null;
 

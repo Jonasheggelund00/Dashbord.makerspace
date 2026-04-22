@@ -10,14 +10,14 @@
     "logged": false
   },
   "192.168.1.253": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-04-15T10:09:22.574Z",
+    "state": "PRINTING",
+    "lastUpdate": "2026-04-22T11:52:48.153Z",
     "logged": true
   },
   "192.168.1.166": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-04-15T10:09:23.515Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-04-22T10:09:05.671Z",
+    "logged": false
   },
   "192.168.1.67": {
     "state": "IDLE",
@@ -40,8 +40,8 @@
     "logged": false
   },
   "192.168.1.219": {
-    "state": "FINISHED",
-    "lastUpdate": "2026-04-15T13:33:57.894Z",
+    "state": "STOPPED",
+    "lastUpdate": "2026-04-22T11:40:03.873Z",
     "logged": true
   }
 }

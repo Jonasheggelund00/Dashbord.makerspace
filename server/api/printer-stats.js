@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 const PRINTERS_FILE = 'server/api/printers.json';
 
 // Hjelpefunksjon for fetch med timeout
-async function fetchWithTimeout(resource, options = {}, timeout = 1000) {
+async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {

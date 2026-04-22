@@ -537,24 +537,57 @@
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
-                <tr v-for="log in paginatedLogs" :key="log.id" class="hover:bg-gray-50 transition-colors">
-                  <td class="px-4 py-3">
-                    <span
-                      :class="['px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap inline-block', getLogTypeClass(log.type)]">
-                      {{ getLogTypeLabel(log.type) }}
-                    </span>
-                  </td>
-                  <td class="px-4 py-3 font-medium text-gray-800">{{ log.device }}</td>
-                  <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ formatDate(log.timestamp) }}</td>
-                  <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ formatTime(log.timestamp) }}</td>
-                  <td class="px-4 py-3 text-center">
-                    <button @click="confirmDeleteLog(log)"
-                      class="text-red-600 hover:text-red-800 transition-colors p-1 text-lg font-bold"
-                      title="Slett denne loggen">
-                      ✕
-                    </button>
-                  </td>
-                </tr>
+                <template v-for="log in paginatedLogs" :key="log.id">
+                  <tr class="hover:bg-gray-50 transition-colors cursor-pointer" @click="toggleLogExpanded(log.id)" :class="expandedLogs.has(log.id) ? (isDark ? 'bg-gray-600' : 'bg-gray-100') : ''">
+                    <td class="px-4 py-3">
+                      <div class="flex items-center gap-2">
+                        <span
+                          :class="['px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap inline-block', getLogTypeClass(log.type)]">
+                          {{ getLogTypeLabel(log.type) }}
+                        </span>
+                        <span v-if="log.type === 'printer_start' && log.metadata" class="text-xs text-gray-500">
+                          {{ expandedLogs.has(log.id) ? '▼' : '▶' }}
+                        </span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 font-medium text-gray-800">{{ log.device }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ formatDate(log.timestamp) }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">{{ formatTime(log.timestamp) }}</td>
+                    <td class="px-4 py-3 text-center">
+                      <button @click.stop="confirmDeleteLog(log)"
+                        class="text-red-600 hover:text-red-800 transition-colors p-1 text-lg font-bold"
+                        title="Slett denne loggen">
+                        ✕
+                      </button>
+                    </td>
+                  </tr>
+                  
+                  <!-- Expanded row for printer_start -->
+                  <tr v-if="expandedLogs.has(log.id) && log.type === 'printer_start' && log.metadata" :class="isDark ? 'bg-gray-700' : 'bg-gray-50'">
+                    <td :colspan="5" class="px-4 py-4">
+                      <div class="space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div v-if="log.metadata.filename">
+                            <p :class="isDark ? 'text-xs text-gray-400 uppercase' : 'text-xs text-gray-600 uppercase'">G-code Filnavn</p>
+                            <p :class="isDark ? 'text-sm text-gray-200 font-medium break-words' : 'text-sm text-gray-800 font-medium break-words'">{{ log.metadata.filename }}</p>
+                          </div>
+                          <div v-if="log.metadata.filament">
+                            <p :class="isDark ? 'text-xs text-gray-400 uppercase' : 'text-xs text-gray-600 uppercase'">Filament</p>
+                            <p :class="isDark ? 'text-sm text-gray-200 font-medium' : 'text-sm text-gray-800 font-medium'">{{ log.metadata.filament }}</p>
+                          </div>
+                          <div v-if="log.metadata.print_duration">
+                            <p :class="isDark ? 'text-xs text-gray-400 uppercase' : 'text-xs text-gray-600 uppercase'">Estimert Varighet</p>
+                            <p :class="isDark ? 'text-sm text-gray-200 font-medium' : 'text-sm text-gray-800 font-medium'">{{ log.metadata.print_duration }}</p>
+                          </div>
+                          <div v-if="log.metadata.hostname">
+                            <p :class="isDark ? 'text-xs text-gray-400 uppercase' : 'text-xs text-gray-600 uppercase'">Printer</p>
+                            <p :class="isDark ? 'text-sm text-gray-200 font-medium' : 'text-sm text-gray-800 font-medium'">{{ log.metadata.hostname }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
               </tbody>
             </table>
           </div>
@@ -1125,6 +1158,7 @@ const activeTab = ref('dashbord');
 // Logging state
 const loadingLogs = ref(false);
 const logs = ref<any[]>([]);
+const expandedLogs = ref<Set<string>>(new Set());
 const logFilter = ref('');
 const showDeleteLogConfirm = ref(false);
 const showDeleteAllConfirm = ref(false);
@@ -1279,6 +1313,16 @@ async function refreshLogs() {
   } finally {
     loadingLogs.value = false;
   }
+}
+
+function toggleLogExpanded(logId: string) {
+  const newSet = new Set(expandedLogs.value);
+  if (newSet.has(logId)) {
+    newSet.delete(logId);
+  } else {
+    newSet.add(logId);
+  }
+  expandedLogs.value = newSet;
 }
 
 function confirmDeleteLog(log: any) {

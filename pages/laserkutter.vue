@@ -31,15 +31,15 @@
           <div
             v-if="sensorData"
             :class="[
-              'flex items-center gap-3 px-3 py-1 rounded-full border',
-              isDark ? 'bg-gray-800 border-gray-700 text-gray-200' : 'bg-white border-gray-200 text-gray-700'
+              'flex items-center gap-3 px-4 py-2 rounded-lg',
+              isDark ? 'bg-gray-800' : 'bg-white shadow-sm'
             ]"
           >
             <div
               class="w-2.5 h-2.5 rounded-full"
               :class="{
-                'bg-green-500 animate-pulse': isActive,
-                'bg-gray-400': !isActive
+                'bg-orange-400 animate-pulse': isActive,
+                'bg-green-500': !isActive
               }"
             ></div>
             <span :class="isDark ? 'text-sm font-medium text-gray-200' : 'text-sm font-medium text-gray-700'">
@@ -82,7 +82,7 @@
             <div class="flex items-center gap-3">
               <span
                 class="w-3 h-3 rounded-full flex-shrink-0"
-                :class="isActive ? 'bg-blue-500 animate-pulse' : 'bg-green-500'"
+                :class="isActive ? 'bg-orange-400 animate-pulse' : 'bg-green-500'"
               ></span>
               <span :class="isDark ? 'text-lg font-medium text-gray-200' : 'text-lg font-medium text-gray-800'">
                 {{ isActive ? 'I bruk' : 'Ledig' }}
