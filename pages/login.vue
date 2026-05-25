@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100 flex flex-col">
+  <div class="min-h-screen bg-gray-50 flex flex-col">
 
     <!-- Top bar with logo + back button -->
     <div class="flex items-center justify-between px-4 sm:px-8 pt-6 pb-2">
