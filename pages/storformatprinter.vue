@@ -56,7 +56,14 @@
           isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
         ]"
       >
-        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Om denne siden</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1">
+          <li>Oversikt over HP DesignJet T630 storformatskriver</li>
+          <li>Viser blekknivå for hver farge (cyan, magenta, gul, svart) og jobbkø</li>
+          <li>Skriver status (ledig/skriver) hentet direkte fra APIet til skriveren</li>
+          <li>Grønt lys betyr skriveren er klar, oransje betyr den skriver</li>
+        </ul>
+        <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Sensorer</p>
         <ul class="mt-2 list-disc pl-5 space-y-1">
           <li>Ingen eksterne sensorer - status og blekknivå hentes fra skriveren</li>
         </ul>
@@ -74,7 +81,7 @@
             d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
         </svg>
         <div>
-          <p :class="isDark ? 'font-semibold text-red-400' : 'font-semibold text-red-700'">Finner ingen informasjon fra printeren</p>
+          <p :class="isDark ? 'font-semibold text-red-400' : 'font-semibold text-red-700'">{{ error || 'Finner ingen informasjon fra printeren' }}</p>
           <p :class="isDark ? 'text-sm text-red-500/80 mt-1' : 'text-sm text-red-500 mt-1'">Kan ikke hente data fra HP DesignJet T630.</p>
           <p :class="isDark ? 'text-sm text-red-500/60 mt-0.5' : 'text-sm text-red-400 mt-0.5'">Sjekk at printeren er skrudd på, ikke i strømsparingsmodus, og koblet til nettverket.</p>
         </div>
@@ -293,6 +300,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useState } from '#app';
 import Header from '../components/Header.vue';
+import { fetchWithTimeout } from '../utils/fetchWithTimeout.js';
 
 const isDark = useState('darkMode', () => {
   if (process.client) {
@@ -305,6 +313,7 @@ const isDark = useState('darkMode', () => {
 const loading = ref(true);
 const lastUpdated = ref('');
 const showInfo = ref(false);
+const error = ref('');
 const data = ref({
   online: false,
   isPrinting: false,
@@ -334,11 +343,12 @@ function jobStateBadgeClass(stateRaw) {
 }
 
 async function fetchData(isInitial = false) {
+  error.value = '';
   if (isInitial) {
     loading.value = true;
   }
   try {
-    const res = await fetch('/api/hp-designjet');
+    const res = await fetchWithTimeout('/api/hp-designjet');
     if (res.ok) {
       const newData = await res.json();
       // Oppdater feltene individuelt for å opprettholde Vue reaktivitet
@@ -348,13 +358,20 @@ async function fetchData(isInitial = false) {
       data.value.ink = newData.ink;
       data.value.jobs = newData.jobs;
       data.value.roll = newData.roll;
+      error.value = '';
       const now = new Date();
       lastUpdated.value = now.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     } else {
       data.value.online = false;
+      error.value = 'HP DesignJet API svarer ikke (HTTP ' + res.status + ')';
     }
   } catch (e) {
     console.error('Feil ved henting av HP DesignJet data:', e);
+    if (e instanceof Error && e.message.includes('timeout')) {
+      error.value = 'HP DesignJet svarer ikke - sjekk internett';
+    } else {
+      error.value = 'Feil ved henting av printer data';
+    }
     data.value.online = false;
   } finally {
     if (isInitial) {

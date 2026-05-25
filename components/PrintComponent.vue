@@ -34,7 +34,14 @@
         isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
       ]"
     >
-      <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+      <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Om denne siden</p>
+      <ul class="mt-2 list-disc pl-5 space-y-1">
+        <li>Oversikt over alle Prusa 3D-printere med real-time status</li>
+        <li>Hver printer viser: modell, navn, nåværende status (skriver/pause/ledig), bed- og dysetemperatur, fremgang og estimert tid</li>
+        <li>Filamentskap viser samlet temperatur og luftfuktighet fra 2 sensorer</li>
+        <li>Filtrer printere etter navn, modell eller status</li>
+      </ul>
+      <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Sensorer</p>
       <ul class="mt-2 list-disc pl-5 space-y-1">
         <li>Printere rapporterer temperaturer (bed/dyse) og status</li>
         <li>Filamentskap: temperatur og luftfuktighet (2 sensorer)</li>
@@ -1491,6 +1498,7 @@ import { ref, onMounted, onUnmounted, computed, watch, nextTick } from 'vue'
 import { useState } from '#app'
 import { sharedPrinterList } from './printerState.js'
 import { useRoute } from 'vue-router'
+import { fetchWithTimeout } from '../utils/fetchWithTimeout.js'
 
 // Dark mode state
 const isDark = useState('darkMode', () => {
@@ -1526,7 +1534,8 @@ const cabinet = ref({ online: false })
 let cabinetInterval = null
 async function fetchCabinet() {
   try {
-    const data = await $fetch('/api/filament-cabinet')
+    const res = await fetchWithTimeout('/api/filament-cabinet')
+    const data = await res.json()
     cabinet.value = data
   } catch {
     cabinet.value = { online: false }
@@ -1721,7 +1730,7 @@ async function fetchInfo() {
   })
 
   try {
-    const res = await fetch('/api/prusa')
+    const res = await fetchWithTimeout('/api/prusa')
     const data = await res.json()
     
     // API returnerer alltid en array
@@ -1759,7 +1768,11 @@ async function fetchInfo() {
       printerList.value = []
     }
   } catch (e) {
-    error.value = e.message
+    if (e instanceof Error && e.message.includes('timeout')) {
+      error.value = 'Printer API svarer ikke - sjekk internett'
+    } else {
+      error.value = e?.message || 'Feil ved henting av printerstatus'
+    }
     printerList.value = []
   }
 }
@@ -1782,7 +1795,7 @@ function modelName(hostname) {
 
 async function loadPollingInterval() {
   try {
-    const data = await fetch('/api/settings')
+    const data = await fetchWithTimeout('/api/settings')
     const result = await data.json()
     if (result.success && result.settings?.polling?.printerInterval) {
       pollingInterval.value = result.settings.polling.printerInterval

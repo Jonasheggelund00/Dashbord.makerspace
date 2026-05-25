@@ -56,7 +56,14 @@
           isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
         ]"
       >
-        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Om denne siden</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1">
+          <li>Real-time overvåking av Glowforge laserkutter</li>
+          <li>Akselerometer gir data om maskinens bevegelse i X, Y og Z akser</li>
+          <li>Grønt lys betyr maskinen er ledig, oransje betyr den er i bruk</li>
+          <li>Total bevegelse indikerer hvor mye maskinen har beveget seg</li>
+        </ul>
+        <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Sensorer</p>
         <ul class="mt-2 list-disc pl-5 space-y-1">
           <li>Akselerometer for X/Y/Z og total bevegelse</li>
         </ul>
@@ -67,8 +74,18 @@
         </ul>
       </div>
 
+      <!-- Feilmelding -->
+      <transition name="fade">
+        <div
+          v-if="error"
+          :class="isDark ? 'mb-6 p-4 rounded-lg bg-red-900/20 text-red-300 border border-red-800 text-sm' : 'mb-6 p-4 rounded-lg bg-red-50 text-red-700 border border-red-200 text-sm'"
+        >
+          ⚠️ {{ error }}
+        </div>
+      </transition>
+
       <!-- Two-column layout like loddestasjon -->
-      <div v-if="sensorData" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div v-if="sensorData && !error" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- LEFT: Image + Info -->
         <div class="space-y-6">
           <div :class="[ 'rounded-lg overflow-hidden', isDark ? 'bg-gray-800' : 'bg-white shadow-sm' ]">
@@ -135,6 +152,12 @@
         <p :class="isDark ? 'text-gray-400 mt-4' : 'text-gray-600 mt-4'">Henter sensordata...</p>
       </div>
 
+      <!-- Error display -->
+      <div v-else-if="error" class="text-center py-16">
+        <div :class="isDark ? 'text-red-400 text-6xl mb-4' : 'text-red-500 text-6xl mb-4'">⚠️</div>
+        <p :class="isDark ? 'text-red-300 text-lg' : 'text-red-600 text-lg'">{{ error }}</p>
+      </div>
+
       <div v-if="lastUpdate" :class="isDark ? 'text-center text-gray-500 text-xs mt-8' : 'text-center text-gray-500 text-xs mt-8'">Sist oppdatert: {{ lastUpdate }}</div>
     </div>
   </div>
@@ -145,6 +168,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useState } from '#app'
 import Header from '@/components/Header.vue'
 import { sharedLaserkutterData, isLaserkutterDataLoaded } from '@/components/laserkutterState.js'
+import { fetchWithTimeout } from '@/utils/fetchWithTimeout.js'
 
 // Dark mode
 const isDark = useState('darkMode', () => {
@@ -179,7 +203,7 @@ onUnmounted(() => {
 async function fetchSensorData() {
   error.value = ''
   try {
-    const res = await fetch('/api/laserkutter-sensor')
+    const res = await fetchWithTimeout('/api/laserkutter-sensor')
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const data = await res.json()
 
@@ -200,7 +224,11 @@ async function fetchSensorData() {
     isLaserkutterDataLoaded.value = true
   } catch (e) {
     console.error('Fetch error:', e)
-    error.value = (e instanceof Error ? e.message : String(e)) || 'Ukjent feil ved henting av sensordata.'
+    if (e instanceof Error && e.message.includes('timeout')) {
+      error.value = 'Laserkutter sensor svarer ikke - sjekk internett'
+    } else {
+      error.value = (e instanceof Error ? e.message : String(e)) || 'Ukjent feil ved henting av sensordata.'
+    }
     loading.value = false
   }
 }

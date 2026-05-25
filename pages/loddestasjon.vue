@@ -57,7 +57,15 @@
           isDark ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-600'
         ]"
       >
-        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Sensorer</p>
+        <p :class="isDark ? 'font-semibold text-gray-100' : 'font-semibold text-gray-800'">Om denne siden</p>
+        <ul class="mt-2 list-disc pl-5 space-y-1">
+          <li>Oversikt over Weller loddestasjon med real-time termisk overvåking</li>
+          <li>Venstre kolonne: produktbilde og statusinformasjon</li>
+          <li>Høyre kolonne: termisk varmekart som viser temperaturfordeling</li>
+          <li>Grønt lys betyr maskinen er ledig, oransje betyr den er i bruk</li>
+          <li>Maks temperatur viser høyeste registrerte temperatur på arbeidsflaten</li>
+        </ul>
+        <p :class="['mt-3 font-semibold', isDark ? 'text-gray-100' : 'text-gray-800']">Sensorer</p>
         <ul class="mt-2 list-disc pl-5 space-y-1">
           <li>Termisk kamera (32x24) MLX90640 sensor for min/snitt/maks og varmekart</li>
         </ul>
@@ -215,6 +223,7 @@ import { useState } from '#app'
 import Header from '@/components/Header.vue'
 import { Camera } from 'lucide-vue-next';
 import { sharedLoddestasjonData, isDataLoaded, loddestasjonInUse, updateLoddestasjonUsage } from '@/components/loddestasjonState.js'
+import { fetchWithTimeout } from '@/utils/fetchWithTimeout.js'
 
 // Dark mode state
 const isDark = useState('darkMode', () => {
@@ -310,7 +319,7 @@ onUnmounted(() => {
 async function fetchSensorData() {
   error.value = ''
   try {
-    const response = await fetch('/api/loddestasjon-sensor')
+    const response = await fetchWithTimeout('/api/loddestasjon-sensor')
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -492,7 +501,11 @@ async function fetchSensorData() {
     isDataLoaded.value = true // Marker at data er lastet
   } catch (e) {
     console.error('Fetch error:', e)
-    error.value = (e instanceof Error ? e.message : String(e)) || 'Ukjent feil ved henting av sensordata.'
+    if (e instanceof Error && e.message.includes('timeout')) {
+      error.value = '⚠️ Loddestasjon sensor svarer ikke - sjekk internett'
+    } else {
+      error.value = (e instanceof Error ? e.message : String(e)) || 'Ukjent feil ved henting av sensordata.'
+    }
     loading.value = false
   }
 }

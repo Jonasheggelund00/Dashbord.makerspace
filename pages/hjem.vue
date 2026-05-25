@@ -114,7 +114,13 @@
 
           <!-- Loddestasjon -->
           <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
-            <div v-if="hasLoddestasjonAlert" class="absolute top-3 right-3 text-yellow-500" :title="loddestasjonAlertMessage">
+            <div v-if="hasLoddestasjonAlert && !loddestasjonError" class="absolute top-3 right-3 text-yellow-500" :title="loddestasjonAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
+            <div v-if="loddestasjonError" class="absolute top-3 right-3 text-red-500" :title="loddestasjonError">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -131,6 +137,9 @@
             <div v-if="loadingLoddestasjon" class="space-y-2">
               <div class="h-8 w-28 bg-gray-200 rounded animate-pulse"></div>
               <div class="h-4 w-36 bg-gray-100 rounded animate-pulse"></div>
+            </div>
+            <div v-else-if="loddestasjonError" class="text-red-600 text-sm font-medium">
+              <p>{{ loddestasjonError }}</p>
             </div>
             <div v-else>
               <div class="flex items-center gap-2 mb-1">
@@ -149,7 +158,13 @@
 
           <!-- Laserkutter -->
           <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
-            <div v-if="hasLaserkutterAlert" class="absolute top-3 right-3 text-yellow-500" :title="laserkutterAlertMessage">
+            <div v-if="hasLaserkutterAlert && !laserkutterError" class="absolute top-3 right-3 text-yellow-500" :title="laserkutterAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
+            <div v-if="laserkutterError" class="absolute top-3 right-3 text-red-500" :title="laserkutterError">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -166,6 +181,9 @@
               <div class="h-8 w-28 bg-gray-200 rounded animate-pulse"></div>
               <div class="h-4 w-36 bg-gray-100 rounded animate-pulse"></div>
             </div>
+            <div v-else-if="laserkutterError" class="text-red-600 text-sm font-medium">
+              <p>{{ laserkutterError }}</p>
+            </div>
             <div v-else>
               <div class="flex items-center gap-2 mb-1">
                 <span
@@ -180,7 +198,13 @@
 
           <!-- HP DesignJet T630 -->
           <div class="relative bg-gray-50 rounded-2xl p-5 border border-gray-100">
-            <div v-if="hasHpDesignjetAlert" class="absolute top-3 right-3 text-yellow-500" :title="hpDesignjetAlertMessage">
+            <div v-if="hasHpDesignjetAlert && !hpDesignjetError" class="absolute top-3 right-3 text-yellow-500" :title="hpDesignjetAlertMessage">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              </svg>
+            </div>
+            <div v-if="hpDesignjetError" class="absolute top-3 right-3 text-red-500" :title="hpDesignjetError">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -196,6 +220,9 @@
             <div v-if="loadingHpDesignjet" class="space-y-2">
               <div class="h-8 w-28 bg-gray-200 rounded animate-pulse"></div>
               <div class="h-4 w-36 bg-gray-100 rounded animate-pulse"></div>
+            </div>
+            <div v-else-if="hpDesignjetError" class="text-red-600 text-sm font-medium">
+              <p>{{ hpDesignjetError }}</p>
             </div>
             <div v-else-if="!hpDesignjet.online">
               <div class="flex items-center gap-2 mb-1">
@@ -393,6 +420,7 @@ import Header from '../components/Header.vue';
 import WallDisplayLaunch from '../components/WallDisplayLaunch.vue';
 import { sharedPrinterList } from '../components/printerState.js';
 import { loddestasjonInUse as sharedLoddestasjonInUse, updateLoddestasjonUsage } from '../components/loddestasjonState.js';
+import { fetchWithTimeout } from '../utils/fetchWithTimeout.js';
 
 const isDark = useState('darkMode', () => {
   if (process.client) {
@@ -524,17 +552,21 @@ const nodeStatusText = computed(() => {
 
 async function fetchPrinters() {
   try {
-    const res = await fetch('/api/prusa');
+    const res = await fetchWithTimeout('/api/prusa');
     if (res.ok) {
       const data = await res.json();
       printers.value = Array.isArray(data) ? data : [data];
       printersError.value = null;
     } else {
-      printersError.value = 'Kunne ikke hente printerstatus';
+      printersError.value = 'Kunne ikke hente printerstatus (HTTP ' + res.status + ')';
     }
   } catch (e) {
     console.error('Feil ved henting av printere:', e);
-    printersError.value = 'Feil ved henting av printere';
+    if (e.message.includes('timeout')) {
+      printersError.value = 'Printing API svarer ikke - sjekk internett';
+    } else {
+      printersError.value = 'Feil ved henting av printere: ' + (e.message || 'Ukjent feil');
+    }
   } finally {
     loadingPrinters.value = false;
   }
@@ -542,7 +574,7 @@ async function fetchPrinters() {
 
 async function fetchLoddestasjon() {
   try {
-    const res = await fetch('/api/loddestasjon-sensor');
+    const res = await fetchWithTimeout('/api/loddestasjon-sensor');
     if (res.ok) {
       const data = await res.json();
       const maxTemp = parseFloat(data.thermalMax);
@@ -550,11 +582,17 @@ async function fetchLoddestasjon() {
       loddestasjonTemp.value = !isNaN(maxTemp) ? maxTemp : null;
       loddestasjonError.value = null;
     } else {
-      loddestasjonError.value = 'Kunne ikke hente loddestasjon';
+      loddestasjonError.value = 'Loddestasjon API svarer ikke';
+      updateLoddestasjonUsage(null);
     }
   } catch (e) {
     console.error('Feil ved henting av loddestasjon:', e);
-    loddestasjonError.value = 'Feil ved henting av loddestasjon';
+    if (e.message.includes('timeout')) {
+      loddestasjonError.value = 'Loddestasjon sensor svarer ikke - sjekk internett';
+    } else {
+      loddestasjonError.value = 'Feil ved henting av loddestasjon';
+    }
+    updateLoddestasjonUsage(null);
   } finally {
     loadingLoddestasjon.value = false;
   }
@@ -562,17 +600,21 @@ async function fetchLoddestasjon() {
 
 async function fetchLaserkutter() {
   try {
-    const res = await fetch('/api/laserkutter-sensor');
+    const res = await fetchWithTimeout('/api/laserkutter-sensor');
     if (res.ok) {
       const data = await res.json();
       laserkutterInUse.value = data.inUse === true;
       laserkutterError.value = null;
     } else {
-      laserkutterError.value = 'Kunne ikke hente laserkutter';
+      laserkutterError.value = 'Laserkutter API svarer ikke';
     }
   } catch (e) {
     console.error('Feil ved henting av laserkutter:', e);
-    laserkutterError.value = 'Feil ved henting av laserkutter';
+    if (e.message.includes('timeout')) {
+      laserkutterError.value = 'Laserkutter sensor svarer ikke - sjekk internett';
+    } else {
+      laserkutterError.value = 'Feil ved henting av laserkutter';
+    }
   } finally {
     loadingLaserkutter.value = false;
   }
@@ -580,16 +622,20 @@ async function fetchLaserkutter() {
 
 async function fetchHpDesignjet() {
   try {
-    const res = await fetch('/api/hp-designjet');
+    const res = await fetchWithTimeout('/api/hp-designjet');
     if (res.ok) {
       hpDesignjet.value = await res.json();
       hpDesignjetError.value = null;
     } else {
-      hpDesignjetError.value = 'Kunne ikke hente storformatskriver';
+      hpDesignjetError.value = 'HP DesignJet API svarer ikke';
     }
   } catch (e) {
     console.error('Feil ved henting av HP DesignJet:', e);
-    hpDesignjetError.value = 'Feil ved henting av storformatskriver';
+    if (e.message.includes('timeout')) {
+      hpDesignjetError.value = 'HP DesignJet svarer ikke - sjekk internett';
+    } else {
+      hpDesignjetError.value = 'Feil ved henting av storformatskriver';
+    }
   } finally {
     loadingHpDesignjet.value = false;
   }
@@ -597,7 +643,7 @@ async function fetchHpDesignjet() {
 
 async function fetchSensorData() {
   try {
-    const res = await fetch('/api/multisensor');
+    const res = await fetchWithTimeout('/api/multisensor');
     if (res.ok) {
       const data = await res.json();
       if (data.error) {
@@ -615,10 +661,14 @@ async function fetchSensorData() {
         lastSensorUpdate.value = now.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
       }
     } else {
-      sensorError.value = 'Kunne ikke hente sensordata';
+      sensorError.value = 'Multisensor API svarer ikke';
     }
   } catch (e) {
-    sensorError.value = 'Feil ved henting av data';
+    if (e.message.includes('timeout')) {
+      sensorError.value = 'Miljøsensorer svarer ikke - sjekk internett';
+    } else {
+      sensorError.value = 'Feil ved henting av miljødata';
+    }
   } finally {
     loadingSensor.value = false;
   }

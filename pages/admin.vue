@@ -1132,6 +1132,7 @@ import { useState } from '#app';
 import { sharedPrinterList } from '../components/printerState.js';
 import { useRoute, useRouter } from '#app';
 import Header from '../components/Header.vue';
+import { definePageMeta } from '#imports';
 
 // Dark mode state
 const isDark = useState('darkMode', () => {

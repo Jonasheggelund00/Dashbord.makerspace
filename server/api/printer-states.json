@@ -5,43 +5,43 @@
     "logged": false
   },
   "192.168.1.136": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-07T11:50:38.658Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-25T13:28:00.856Z",
+    "logged": true
   },
   "192.168.1.253": {
     "state": "PRINTING",
-    "lastUpdate": "2026-04-22T11:52:48.153Z",
+    "lastUpdate": "2026-05-25T13:23:58.351Z",
     "logged": true
   },
   "192.168.1.166": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-22T10:09:05.671Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-20T09:58:27.392Z",
+    "logged": true
   },
   "192.168.1.67": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-07T11:50:38.701Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-20T09:58:27.392Z",
+    "logged": true
   },
   "192.168.1.66": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-07T11:50:38.702Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-20T09:58:27.393Z",
+    "logged": true
   },
   "192.168.1.211": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-15T10:09:22.583Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-25T13:23:58.184Z",
+    "logged": true
   },
   "192.168.1.241": {
-    "state": "IDLE",
-    "lastUpdate": "2026-04-07T11:50:38.707Z",
-    "logged": false
+    "state": "FINISHED",
+    "lastUpdate": "2026-05-20T09:58:27.393Z",
+    "logged": true
   },
   "192.168.1.219": {
-    "state": "STOPPED",
-    "lastUpdate": "2026-04-22T11:40:03.873Z",
-    "logged": true
+    "state": "IDLE",
+    "lastUpdate": "2026-05-25T13:23:59.172Z",
+    "logged": false
   }
 }

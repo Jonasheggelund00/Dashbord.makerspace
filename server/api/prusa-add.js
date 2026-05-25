@@ -61,6 +61,6 @@ export default defineEventHandler(async (event) => {
   } catch (e) {
     console.error('Feil ved tillegging av printer:', e);
     setResponseStatus(event, 400);
-    return { error: 'Fikk ikke kontakt med printeren (nettverk/API Key feil?)' };
+    return { error: 'Fikk ikke kontakt med printeren, Sjekk nettverk, IP og API Key' };
   }
 });

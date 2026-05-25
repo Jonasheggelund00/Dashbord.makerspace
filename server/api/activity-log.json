@@ -1,1 +1,297 @@
-[]
+[
+  {
+    "id": "17797156808570op0a7dsm",
+    "timestamp": "2026-05-25T13:28:00.857Z",
+    "type": "printer_end",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136"
+    }
+  },
+  {
+    "id": "1779715650754c9567rs2y",
+    "timestamp": "2026-05-25T13:27:30.754Z",
+    "type": "printer_end",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136"
+    }
+  },
+  {
+    "id": "1779715438351ql5bglcvg",
+    "timestamp": "2026-05-25T13:23:58.351Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "14m"
+    }
+  },
+  {
+    "id": "1779715438326066jn0t9e",
+    "timestamp": "2026-05-25T13:23:58.326Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "3m"
+    }
+  },
+  {
+    "id": "1779715438185eh03yoq47",
+    "timestamp": "2026-05-25T13:23:58.185Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "1779715408222dzspxzp9k",
+    "timestamp": "2026-05-25T13:23:28.222Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "3m"
+    }
+  },
+  {
+    "id": "1779715408218zc8czluwx",
+    "timestamp": "2026-05-25T13:23:28.218Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "14m"
+    }
+  },
+  {
+    "id": "17797154081868i9gcqvnr",
+    "timestamp": "2026-05-25T13:23:28.186Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "1779715368776dn0a0ou4c",
+    "timestamp": "2026-05-25T13:22:48.776Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "4m"
+    }
+  },
+  {
+    "id": "17797153687747e44je53q",
+    "timestamp": "2026-05-25T13:22:48.774Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "15m"
+    }
+  },
+  {
+    "id": "177971536874463ueqyr7v",
+    "timestamp": "2026-05-25T13:22:48.744Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "1779715353740v8ya50d9b",
+    "timestamp": "2026-05-25T13:22:33.740Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "177971533975527rvvqdsc",
+    "timestamp": "2026-05-25T13:22:19.755Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "4m"
+    }
+  },
+  {
+    "id": "17797153388000hmfi6fpq",
+    "timestamp": "2026-05-25T13:22:18.800Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "15m"
+    }
+  },
+  {
+    "id": "1779715308793bht8zzyge",
+    "timestamp": "2026-05-25T13:21:48.793Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "5m"
+    }
+  },
+  {
+    "id": "1779715308772x4r434zy0",
+    "timestamp": "2026-05-25T13:21:48.772Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "16m"
+    }
+  },
+  {
+    "id": "17797153087396engsomrp",
+    "timestamp": "2026-05-25T13:21:48.739Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "1779715278801r8iqbrlas",
+    "timestamp": "2026-05-25T13:21:18.801Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "16m"
+    }
+  },
+  {
+    "id": "1779715278792u9y3s4j8h",
+    "timestamp": "2026-05-25T13:21:18.792Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "5m"
+    }
+  },
+  {
+    "id": "1779715278736aggtkkyeh",
+    "timestamp": "2026-05-25T13:21:18.736Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  },
+  {
+    "id": "17797152502209a5epo6ts",
+    "timestamp": "2026-05-25T13:20:50.220Z",
+    "type": "printer_start",
+    "device": "MK4S 02",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.253",
+      "filename": "joan.pla_spirograph_0.4n_0.15mm_PLA_MK4S_35m.bgcode",
+      "filament": "PLA",
+      "print_duration": "17m"
+    }
+  },
+  {
+    "id": "1779715248381facg9q4ot",
+    "timestamp": "2026-05-25T13:20:48.381Z",
+    "type": "printer_start",
+    "device": "MK4S 04",
+    "metadata": {
+      "state": "PRINTING",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.136",
+      "filename": "joan.pla-gear_40(1)_0.4n_0.15mm_PETG_MK4S_2h34m.bgcode",
+      "filament": "PLA",
+      "print_duration": "6m"
+    }
+  },
+  {
+    "id": "1779715248245b530epu5i",
+    "timestamp": "2026-05-25T13:20:48.245Z",
+    "type": "printer_end",
+    "device": "MK4S 10",
+    "metadata": {
+      "state": "FINISHED",
+      "hostname": "prusa-mk4",
+      "ip": "192.168.1.211"
+    }
+  }
+]

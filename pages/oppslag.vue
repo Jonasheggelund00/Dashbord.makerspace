@@ -98,6 +98,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { fetchWithTimeout } from '../utils/fetchWithTimeout.js'
 
 const clock = ref('--:--')
 const dateLabel = ref('')
@@ -203,12 +204,12 @@ function updateClock() {
 async function fetchData() {
   try {
     const [printerRes, laserkutterRes, loddestasjonRes, hpRes, environmentRes, weatherRes] = await Promise.all([
-      fetch('/api/printer-stats'),
-      fetch('/api/laserkutter-sensor'),
-      fetch('/api/loddestasjon-sensor'),
-      fetch('/api/hp-designjet'),
-      fetch('/api/multisensor'),
-      fetch('/api/weather-outdoor')
+      fetchWithTimeout('/api/printer-stats'),
+      fetchWithTimeout('/api/laserkutter-sensor'),
+      fetchWithTimeout('/api/loddestasjon-sensor'),
+      fetchWithTimeout('/api/hp-designjet'),
+      fetchWithTimeout('/api/multisensor'),
+      fetchWithTimeout('/api/weather-outdoor')
     ])
 
     if (printerRes.ok) {
